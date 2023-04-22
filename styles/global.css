@@ -20,6 +20,35 @@ html {
   font-size: 10px;
 }
 
+.hdr {
+  padding: 0 min(4rem, 5vw);
+  position: relative;
+  height: 8rem;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+  align-items: center;
+}
+.hdr-log {
+  width: 10rem;
+  height: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--denim, #1569ae);
+  border-radius: 1rem;
+  color: var(--white, #ffffff);
+  text-decoration: none;
+  font-size: 1.8rem;
+  font-weight: 700;
+  transition: background ease-in-out 275ms;
+}
+.hdr-log:hover,
+.hdr-log:focus,
+.hdr-log:focus-visible {
+  background: #1569aea6;
+}
+
 .ftr {
   position: relative;
   height: 6rem;
