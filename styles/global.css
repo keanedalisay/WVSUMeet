@@ -1,0 +1,21 @@
+:root {
+  --denim: #1569ae;
+  --mnshft: #212121;
+  --white: #ffffff;
+  --wldsnd: #f4f4f4;
+  --grey: #8c8c8c;
+}
+
+*,
+::before,
+::after {
+  margin: 0;
+  padding: 0;
+  border: none;
+  box-sizing: border-box;
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+}
+
+html {
+  font-size: 10px;
+}
