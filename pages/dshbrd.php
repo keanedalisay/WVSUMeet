@@ -21,30 +21,7 @@
     <section class="msgbox">
       <div class="wrap--msgs">
         <ol class="msgs" data-slctr="msgbox" tabindex="0" aria-label="Message box">
-          <li class="msg msg--others">
-            <cite class="msg-athr">Nel Alanan</cite>
-            <blockquote class="msg-ctnt">
-              Hello world! This is asd asdj asdj asdj asdj asd asdj nsad ijfsdji aeijasd asdij.
-            </blockquote>
-          </li>
-          <li class="msg msg--user">
-            <cite class="msg-athr">You</cite>
-            <blockquote class="msg-ctnt">
-              Hello world! This is asd asdj asdj asdj asdj asd asdj nsad ijfsdji aeijasd asdij.
-            </blockquote>
-          </li>
-          <li class="msg msg--user">
-            <cite class="msg-athr">You</cite>
-            <blockquote class="msg-ctnt">
-              Hello world! This is asd asdj asdj asdj asdj asd asdj nsad ijfsdji aeijasd asdij.
-            </blockquote>
-          </li>
-          <li class="msg msg--user">
-            <cite class="msg-athr">You</cite>
-            <blockquote class="msg-ctnt">
-              Hello world! This is asd asdj asdj asdj asdj asd asdj nsad ijfsdji aeijasd asdij.
-            </blockquote>
-          </li>
+          <?php require_once('../scripts/php/show_gbl_msgs.php') ?>
         </ol>
       </div>
       <form class="wdgt">
