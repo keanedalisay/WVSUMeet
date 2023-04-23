@@ -8,6 +8,7 @@
   <title>Meet.WVSU</title>
   <link href="../styles/global.css" rel="stylesheet">
   <link href="../styles/dshbrd.css" rel="stylesheet">
+  <script src="../scripts/js/dshbrd.js" defer></script>
 </head>
 
 <body>
@@ -17,9 +18,9 @@
       <h1 class="hdng-user">Welcome, Keane.</h1>
       <hr class="hdng-hr">
     </section>
-    <section class="chatbox">
+    <section class="msgbox">
       <div class="wrap--msgs">
-        <ul class="msgs">
+        <ul class="msgs" data-slctr="msgbox">
           <li class="msg msg--others">
             <cite class="msg-athr">Nel Alanan</cite>
             <blockquote class="msg-ctnt">
