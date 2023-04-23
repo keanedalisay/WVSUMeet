@@ -35,6 +35,7 @@
 }
 .msgs {
   padding: 1rem 0.5rem 0 0;
+  width: 100%;
   max-height: 100%;
   position: absolute;
   bottom: 0;
@@ -47,16 +48,19 @@
 }
 .msg {
   padding: 1rem;
-  margin: clamp(1.5rem, 1vw, 2rem) 0;
-  width: 60%;
+  margin: clamp(1.5rem, 1vw, 2rem) 0 clamp(1.5rem, 1vw, 2rem) 0;
+  width: min(60%, auto);
   position: relative;
   border-radius: 0.5rem;
 }
 .msg--user {
+  margin-left: 40%;
   float: right;
   background: #1569ae21;
 }
 .msg--others {
+  margin-right: 40%;
+  float: left;
   background: var(--white, #ffffff);
 }
 .msg-athr {
