@@ -81,6 +81,10 @@
   font-size: clamp(1.4rem, 2vw, 1.6rem);
   resize: none;
 }
+.wdgt-input:focus,
+.wdgt-input:focus-visible {
+  outline: 0.2rem solid var(--denim, #1569ae);
+}
 .wdgt-sbmt {
   width: 3.5rem;
   height: 3.5rem;
