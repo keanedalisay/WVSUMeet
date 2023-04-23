@@ -20,7 +20,7 @@
     </section>
     <section class="msgbox">
       <div class="wrap--msgs">
-        <ul class="msgs" data-slctr="msgbox">
+        <ol class="msgs" data-slctr="msgbox" tabindex="0" aria-label="Message box">
           <li class="msg msg--others">
             <cite class="msg-athr">Nel Alanan</cite>
             <blockquote class="msg-ctnt">
@@ -45,12 +45,12 @@
               Hello world! This is asd asdj asdj asdj asdj asd asdj nsad ijfsdji aeijasd asdij.
             </blockquote>
           </li>
-        </ul>
+        </ol>
       </div>
       <form class="wdgt">
-        <textarea class="wdgt-input" placeholder="Enter your message..." aria-label="Message box."></textarea>
-        <button class="wdgt-sbmt" type="submit" aria-label="Send message.">
-          <img src="../assets/icons/send_msg_icon.svg" alt="Send message.">
+        <textarea class="wdgt-input" placeholder="Enter your message..." aria-label="Message input"></textarea>
+        <button class="wdgt-sbmt" type="submit" aria-label="Send message">
+          <img src="../assets/icons/send_msg_icon.svg" alt="Send message">
         </button>
       </form>
     </section>

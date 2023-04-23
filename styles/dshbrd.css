@@ -41,6 +41,10 @@
   list-style: none;
   overflow-y: auto;
 }
+.msgs:focus,
+.msgs:focus-visible {
+  outline: 0.2rem solid var(--denim, #1569ae);
+}
 .msg {
   padding: 1rem;
   margin: clamp(1.5rem, 1vw, 2rem) 0;
