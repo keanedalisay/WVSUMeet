@@ -1,3 +1,5 @@
+<?php require_once('../scripts/php/prcss_gbl_msg.php') ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +14,7 @@
 </head>
 
 <body>
-  <?php require_once('cmpnts/header.logout.php') ?>
+  <?php require_once('cmpnts/header.logout.html') ?>
   <main class="mn">
     <section class="hdng">
       <h1 class="hdng-user">Welcome, Keane.</h1>
@@ -24,15 +26,16 @@
           <?php require_once('../scripts/php/show_gbl_msgs.php') ?>
         </ol>
       </div>
-      <form class="wdgt">
-        <textarea class="wdgt-input" placeholder="Enter your message..." aria-label="Message input"></textarea>
+      <form class="wdgt" action="dshbrd.php" method="POST">
+        <textarea class="wdgt-input" name="user_gbl_msg" placeholder="Enter your message..."
+          aria-label="Global message input"></textarea>
         <button class="wdgt-sbmt" type="submit" aria-label="Send message">
           <img src="../assets/icons/send_msg_icon.svg" alt="Send message">
         </button>
       </form>
     </section>
   </main>
-  <?php require_once('cmpnts/footer.php') ?>
+  <?php require_once('cmpnts/footer.html') ?>
 </body>
 
 </html>
