@@ -1,4 +1,4 @@
 (() => {
   const msgbox = document.querySelector("[data-slctr=msgbox]");
-  msgbox.scrollTop += msgbox.getBoundingClientRect().height;
+  msgbox.scrollTop += msgbox.scrollHeight;
 })();
