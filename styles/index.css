@@ -1,0 +1,51 @@
+.mn {
+  margin: 0 auto;
+  width: min(80%, 100rem);
+  height: 85vh;
+  position: relative;
+}
+
+.hdng {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.hdng-meet {
+  margin: 0 0 2rem;
+  padding: 0 clamp(1rem, 2vw, 1.5rem);
+  float: left;
+  background-color: var(--denim, #1569ae);
+  border-radius: 0.5rem;
+  color: var(--white, #ffffff);
+  font-size: clamp(5rem, 8vw, 10rem);
+  font-weight: 700;
+}
+.hdng-ppl {
+  margin: 0 0 2rem;
+  float: left;
+  clear: left;
+  color: var(--mnshft, #212121);
+  font-size: clamp(2.5rem, 4vw, 5rem);
+}
+
+.hdng-signup {
+  margin-top: 3rem;
+  padding: clamp(1rem, 1.5vw, 1.5rem) clamp(3rem, 5vw, 5rem);
+  position: relative;
+  left: 25%;
+  float: left;
+  clear: left;
+  background-color: var(--denim, #1569ae);
+  border-radius: 0.5rem;
+  color: var(--white, #ffffff);
+  text-decoration: none;
+  font-size: clamp(2rem, 3vw, 2.8rem);
+  font-weight: 700;
+  transition: background ease-in-out 275ms;
+}
+
+.hdng-signup:hover,
+.hdng-signup:focus,
+.hdng-signup:focus-visible {
+  background: #1569aea6;
+}
