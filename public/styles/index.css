@@ -1,6 +1,4 @@
 .mn {
-  margin: 0 auto;
-  width: min(80%, 100rem);
   height: 85vh;
   position: relative;
 }

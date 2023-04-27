@@ -50,6 +50,11 @@ html {
   background: #1569aea6;
 }
 
+.mn {
+  margin: 0 auto;
+  width: min(80%, 100rem);
+}
+
 .ftr {
   position: relative;
   height: 6rem;
