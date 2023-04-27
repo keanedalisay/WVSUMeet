@@ -27,7 +27,6 @@
   color: var(--mnshft, #212121);
   font-size: clamp(2.5rem, 4vw, 5rem);
 }
-
 .hdng-signup {
   margin-top: 3rem;
   padding: clamp(1rem, 1.5vw, 1.5rem) clamp(3rem, 5vw, 5rem);
@@ -43,9 +42,39 @@
   font-weight: 700;
   transition: background ease-in-out 275ms;
 }
-
 .hdng-signup:hover,
 .hdng-signup:focus,
 .hdng-signup:focus-visible {
   background: #1569aea6;
+}
+
+.ptrts {
+  position: relative;
+  background: yellow;
+}
+.ptrts-img {
+  width: 10rem;
+  height: 10rem;
+  position: absolute;
+  background: var(--grey, #8c8c8c);
+  border-radius: 1rem;
+  z-index: -1;
+}
+.ptrts-img--one {
+  width: 15rem;
+  height: 20rem;
+  top: 0;
+  left: 50%;
+}
+.ptrts-img--two {
+  width: 20rem;
+  height: 20rem;
+  top: 10rem;
+  left: 40%;
+}
+.ptrts-img--three {
+  width: 15rem;
+  height: 12rem;
+  top: 50vh;
+  right: 10%;
 }

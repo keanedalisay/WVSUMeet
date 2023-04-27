@@ -18,9 +18,13 @@
       <h2 class="hdng-ppl">your classmates...</h2>
       <a href="pages/signup.php" class="hdng-signup">Sign-Up</a>
     </section>
+    <section class="ptrts">
+      <img class="ptrts-img ptrts-img--one">
+      <img class="ptrts-img ptrts-img--two">
+      <img class="ptrts-img ptrts-img--three">
+    </section>
   </main>
   <?php require_once('pages/cmpnts/footer.html') ?>
-
 </body>
 
 </html>
