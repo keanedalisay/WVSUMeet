@@ -36,18 +36,18 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: var(--denim, #1569ae);
   border-radius: 1rem;
-  color: var(--white, #ffffff);
+  color: var(--denim, #1569ae);
   text-decoration: none;
   font-size: 1.8rem;
   font-weight: 700;
-  transition: background ease-in-out 275ms;
+  transition: background ease-in-out 275ms, color ease-in-out 275ms;
 }
 .hdr-log:hover,
 .hdr-log:focus,
 .hdr-log:focus-visible {
-  background: #1569aea6;
+  background: var(--denim, #1569ae);
+  color: var(--white, #ffffff);
 }
 
 .mn {
