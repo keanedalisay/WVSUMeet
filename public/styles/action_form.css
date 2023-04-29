@@ -1,6 +1,9 @@
 .mn {
   height: 80vh;
 }
+.mn--signup {
+  height: 100vh;
+}
 .wrap--action_form {
   top: 50%;
   left: 50%;
@@ -55,6 +58,9 @@
   font-size: 1.5rem;
   font-weight: 700;
   transform: translateX(-20%);
+}
+.form-lbl--signup_pswrd {
+  margin-top: 3rem;
 }
 .form-input {
   margin: 0.5rem 0 1rem 0;

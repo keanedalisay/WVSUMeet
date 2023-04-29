@@ -13,7 +13,7 @@
 
 <body>
   <?php require_once('../../private/cmpnts/header.login.html') ?>
-  <main class="mn">
+  <main class="mn mn--signup">
     <div class="wrap wrap--action_form">
       <section class="hdng">
         <h1 class="hdng-actn">Sign-Up</h1>
@@ -26,7 +26,7 @@
           <input id="user_name" type="text" name="user_name" class="form-input" />
           <label for="user_wid" class="form-lbl">WVSU-ID:</label>
           <input id="user_wid" type="text" name="user_wid" class="form-input" />
-          <label for="user_pswrd" class="form-lbl">Password:</label>
+          <label for="user_pswrd" class="form-lbl form-lbl--signup_pswrd">Password:</label>
           <input id="user_pswrd" type="password" name="user__cnfrm_pswrd" class="form-input" />
           <label for="user_cnfrm_pswrd" class="form-lbl">Confirm:</label>
           <input id="user_cnfrm_pswrd" type="password" name="user_cnfrm_pswrd" class="form-input" />
