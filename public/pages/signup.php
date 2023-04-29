@@ -14,7 +14,7 @@
 <body>
   <?php require_once('../../private/cmpnts/header.login.html') ?>
   <main class="mn">
-    <div class="wrap--login">
+    <div class="wrap wrap--action_form">
       <section class="hdng">
         <h1 class="hdng-actn">Sign-Up</h1>
         <p class="hdng-side">as a new user...</p>

@@ -14,14 +14,14 @@
 <body>
   <?php require_once('../../private/cmpnts/header.login.html') ?>
   <main class="mn">
-    <div class="wrap--login">
+    <div class="wrap wrap--action_form">
       <section class="hdng">
         <h1 class="hdng-actn">Log-in</h1>
         <p class="hdng-side">to your account...</p>
         <a class="hdng-link" href="signup.php">or sign-up for a new one</a>
       </section>
       <section class="login">
-        <form class="form" action="../../private/process/signup.php" method="POST">
+        <form class="form" action="../../private/process/login.php" method="POST">
           <label for="user_wid" class="form-lbl">WVSU-ID:</label>
           <input id="user_wid" type="text" name="user_wid" class="form-input" />
           <label for="user_pswrd" class="form-lbl">Password:</label>

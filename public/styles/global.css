@@ -21,6 +21,11 @@ html {
   font-size: 10px;
 }
 
+.wrap {
+  width: 100%;
+  position: relative;
+}
+
 .hdr {
   padding: 0 min(4rem, 5vw);
   position: relative;
