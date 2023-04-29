@@ -60,6 +60,7 @@ html {
   height: 6rem;
 }
 .cprgt {
+  padding: 3rem 1rem;
   width: min(40rem, 90%);
   position: absolute;
   top: 50%;
