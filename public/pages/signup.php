@@ -27,7 +27,7 @@
           <label for="user_wid" class="form-lbl">WVSU-ID:</label>
           <input id="user_wid" type="text" name="user_wid" class="form-input" />
           <label for="user_pswrd" class="form-lbl form-lbl--signup_pswrd">Password:</label>
-          <input id="user_pswrd" type="password" name="user__cnfrm_pswrd" class="form-input" />
+          <input id="user_pswrd" type="password" name="user_pswrd" class="form-input" />
           <label for="user_cnfrm_pswrd" class="form-lbl">Confirm:</label>
           <input id="user_cnfrm_pswrd" type="password" name="user_cnfrm_pswrd" class="form-input" />
           <button type="submit" class="form-submit">Sign-Up</button>
