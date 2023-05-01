@@ -12,7 +12,7 @@
 </head>
 
 <body>
-  <?php require_once('../../private/cmpnts/header.logout.html') ?>
+  <?php require_once('../../private/cmpnts/header.logout.php') ?>
   <main class="mn">
     <section class="hdng">
       <h1 class="hdng-user">Welcome

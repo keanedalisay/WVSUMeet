@@ -2,6 +2,7 @@
 require_once('../../private/hlprs/sess.php');
 
 sessStart('CREDS');
+$logout_actn = 'login.php';
 
 if (!isset($_SESSION['has_logged_in']) || !$_SESSION['has_logged_in']) {
   $_SESSION['has_logged_in'] = false;

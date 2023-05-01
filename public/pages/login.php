@@ -2,6 +2,7 @@
 require_once('../../private/hlprs/sess.php');
 
 sessStart('CREDS');
+sessCheckLogout();
 sessCheckLogin('Location: dshbrd.php');
 $login_path = 'login.php';
 
