@@ -1,9 +1,17 @@
 <?php
 $login_path = 'login.php';
 
+session_name('CREDS');
+session_start();
+
+if (!isset($_SESSION['has_logged_in']) || !$_SESSION['has_logged_in']) {
+  $_SESSION['has_logged_in'] = false;
+} else {
+  header('Location: dshbrd.php', true, 302);
+  exit;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  session_name('CREDS');
-  session_start();
 
   $conn = mysqli_connect('localhost', 'root', '', 'meet.wvsu');
 
@@ -19,7 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   $_SESSION['user_name'] = $user_name;
   $_SESSION['user_wid'] = $user_wid;
+  $_SESSION['has_logged_in'] = true;
+
   header('Location: dshbrd.php');
+  exit;
 }
 
 require_once('../../private/tmps/signup.tmp.php');
