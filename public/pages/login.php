@@ -2,14 +2,8 @@
 require_once('../../private/hlprs/sess.php');
 
 sessStart('CREDS');
+sessCheckLogin('Location: dshbrd.php');
 $login_path = 'login.php';
-
-if (!isset($_SESSION['has_logged_in']) || !$_SESSION['has_logged_in']) {
-  $_SESSION['has_logged_in'] = false;
-} else {
-  header('Location: dshbrd.php', true, 302);
-  exit;
-}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
