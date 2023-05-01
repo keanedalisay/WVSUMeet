@@ -1,4 +1,6 @@
 <?php
+$login_path = 'pages/login.php';
+
 session_name('CREDS');
 session_start();
 

@@ -12,7 +12,7 @@
 </head>
 
 <body>
-  <?php require_once('../private/cmpnts/header.login.html') ?>
+  <?php require_once('../private/cmpnts/header.login.php') ?>
   <main class="mn">
     <section class="hdng">
       <h1 class="hdng-meet">Meet</h1>

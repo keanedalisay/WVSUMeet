@@ -1,4 +1,6 @@
 <?php
+$login_path = 'login.php';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   session_name('CREDS');
   session_start();

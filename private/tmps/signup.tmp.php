@@ -12,7 +12,7 @@
 </head>
 
 <body>
-  <?php require_once('../../private/cmpnts/header.login.html') ?>
+  <?php require_once('../../private/cmpnts/header.login.php') ?>
   <main class="mn mn--signup">
     <div class="wrap wrap--action_form">
       <section class="hdng">
