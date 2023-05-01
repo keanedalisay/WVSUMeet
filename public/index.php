@@ -1,8 +1,8 @@
 <?php
-$login_path = 'pages/login.php';
+require_once('../private/hlprs/sess.php');
 
-session_name('CREDS');
-session_start();
+sessStart('CREDS');
+$login_path = 'pages/login.php';
 
 if (!isset($_SESSION['has_logged_in']) || !$_SESSION['has_logged_in']) {
   $_SESSION['has_logged_in'] = false;

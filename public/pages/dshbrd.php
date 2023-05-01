@@ -1,6 +1,7 @@
 <?php
-session_name('CREDS');
-session_start();
+require_once('../../private/hlprs/sess.php');
+
+sessStart('CREDS');
 
 if (!isset($_SESSION['has_logged_in']) || !$_SESSION['has_logged_in']) {
   $_SESSION['has_logged_in'] = false;
