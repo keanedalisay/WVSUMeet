@@ -1,18 +1,26 @@
 <?php
 
+require_once('../hlprs/sess.php');
+
+sessStart('CREDS');
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $db = mysqli_connect('localhost', 'root', '', 'meet.wvsu');
+  $conn = mysqli_connect('localhost', 'root', '', 'meet.wvsu');
 
-  $wids = ['2022M0017', '2022M0257'][round(mt_rand(0, 1))];
-  $gbl_msg = filter_input(INPUT_POST, 'user_gbl_msg', FILTER_SANITIZE_SPECIAL_CHARS);
+  $user_wid = htmlspecialchars($_SESSION['user_wid']);
   $msg_id = uniqid(random_bytes(5));
-  $time_sent = date('Y-m-d h:i:m');
+  $gbl_msg = htmlspecialchars($_POST['user_gbl_msg']);
 
-  $_SESSION['LST_TIME_MSG'] = $time_sent;
+  $time_sent = time();
 
-  mysqli_query($db, "INSERT INTO gbl_msgs(Msg, WID, Msg_ID, Time_Sent) VALUES ('$gbl_msg', '$wids', '$msg_id', '$time_sent')");
-  mysqli_close($db);
-  header('Location: dshbrd.php', true, 303);
+  $gbl_msg_sql = "INSERT INTO gbl_msgs(WVSU_ID, Msg_ID, Msg, Time_Sent) VALUES (?, ?, ?, ?)";
+  $prep_gbl_msg = mysqli_prepare($conn, $gbl_msg_sql);
+  mysqli_stmt_bind_param($prep_gbl_msg, 'sssi', $user_wid, $msg_id, $gbl_msg, $time_sent);
+  mysqli_stmt_execute($prep_gbl_msg);
+  mysqli_stmt_close($prep_gbl_msg);
+
+  mysqli_close($conn);
+  header('Location: ../../public/pages/dshbrd.php', true, 303);
   exit;
 }
 ?>

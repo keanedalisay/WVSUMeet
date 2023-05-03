@@ -8,7 +8,7 @@
   <title>Meet.WVSU</title>
   <link href="../styles/global.css" rel="stylesheet">
   <link href="../styles/dshbrd.css" rel="stylesheet">
-  <script src="../scripts/js/dshbrd.js" defer></script>
+  <script src="../scripts/dshbrd.js" defer></script>
 </head>
 
 <body>
@@ -23,9 +23,10 @@
     <section class="msgbox">
       <div class="wrap wrap--msgs">
         <ol class="msgs" data-slctr="msgbox" tabindex="0" aria-label="Message box">
+          <?php require_once('../../private/msg_system/show_gbl_msgs.php') ?>
         </ol>
       </div>
-      <form class="wdgt" action="dshbrd.php" method="POST">
+      <form class="wdgt" action="../../private/msg_system/prcss_gbl_msg.php" method="POST">
         <textarea class="wdgt-input" name="user_gbl_msg" placeholder="Enter your message..."
           aria-label="Global message input"></textarea>
         <button class="wdgt-sbmt" type="submit" aria-label="Send message">
