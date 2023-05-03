@@ -12,8 +12,10 @@
     })
       .then((resp) => resp.text())
       .then((gbl_msg_html) => {
-        if (gbl_msg_html) msgbox.insertAdjacentHTML("beforeend", gbl_msg_html);
-        msgbox.scrollTop += msgbox.scrollHeight;
+        if (gbl_msg_html) {
+          msgbox.insertAdjacentHTML("beforeend", gbl_msg_html);
+          msgbox.scrollTop += msgbox.scrollHeight;
+        }
         newGblMsg();
       })
       .catch((err) => {
