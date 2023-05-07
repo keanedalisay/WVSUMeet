@@ -24,7 +24,8 @@
 .msgbox {
   margin-top: 4rem;
   padding: 2rem;
-  height: max(60vh, 40rem);
+  height: 40rem;
+  max-height: 60vh;
   background: var(--wldsnd, #f4f4f4);
   border-radius: 0.5rem;
 }
@@ -48,7 +49,8 @@
 .msg {
   padding: 1rem;
   margin: clamp(1.5rem, 1vw, 2rem) 0 clamp(1.5rem, 1vw, 2rem) 0;
-  width: min(60%, auto);
+  max-width: 60%;
+  clear: both;
   position: relative;
   border-radius: 0.5rem;
 }
@@ -68,9 +70,11 @@
   color: var(--grey, #8c8c8c);
   font-size: 1.2rem;
   font-style: normal;
+  white-space: nowrap;
 }
 .msg-ctnt {
-  font-size: clamp(1.4rem, 2vw, 1.8rem);
+  font-size: 1.4rem;
+  word-wrap: break-word;
 }
 .wdgt {
   height: 20%;
@@ -113,4 +117,10 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+@media screen and (min-width: 500px) {
+  .msg-ctnt {
+    font-size: 1.8rem;
+  }
 }

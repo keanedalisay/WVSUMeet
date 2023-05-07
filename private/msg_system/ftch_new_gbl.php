@@ -22,10 +22,10 @@ foreach ($gbl_msgs as $gbl_msg) {
   $user_sql = mysqli_query($conn, "SELECT Name, WVSU_ID FROM users WHERE WVSU_ID = '$msg_wid'");
   $user = mysqli_fetch_assoc($user_sql);
 
-  $user_name = $user["Name"];
-  $msg_cls = $crnt_user_wid === $user['WVSU_ID'] ? 'msg--user' : 'msg--others';
-  $time_comp = $gbl_msg['Time_Sent'];
-  $time_comp2 = $time_comp > $time_sent;
+  $is_crnt_user = $crnt_user_wid === $user['WVSU_ID'];
+
+  $user_name = $is_crnt_user ? 'You' : $user['Name'];
+  $msg_cls = $is_crnt_user ? 'msg--user' : 'msg--others';
 
   $html_gbl_msgs .= "
     <li class='msg $msg_cls'>

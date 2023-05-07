@@ -14,8 +14,10 @@ foreach ($gbl_msgs as $gbl_msg) {
   $user_sql = mysqli_query($conn, "SELECT Name, WVSU_ID FROM users WHERE WVSU_ID = '$msg_wid'");
   $user = mysqli_fetch_assoc($user_sql);
 
-  $msg_cls = $crnt_user_wid === $user['WVSU_ID'] ? 'msg--user' : 'msg--others';
-  $user_name = $user['Name'];
+  $is_crnt_user = $crnt_user_wid === $user['WVSU_ID'];
+
+  $user_name = $is_crnt_user ? 'You' : $user['Name'];
+  $msg_cls = $is_crnt_user ? 'msg--user' : 'msg--others';
 
   echo "
     <li class='msg $msg_cls'>
