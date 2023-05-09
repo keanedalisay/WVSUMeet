@@ -27,5 +27,4 @@ if (!isset($_SESSION['lst_msg_time']))
   $_SESSION['lst_msg_time'] = time();
 
 showDshbrd();
-echo $_SESSION['lst_msg_time'];
 ?>

@@ -16,7 +16,7 @@
   <main class="mn">
     <section class="hdng">
       <h1 class="hdng-user">Welcome
-        <?php echo $user_name[0], '.' ?>
+        <?php echo $user_name[0] ?>
       </h1>
       <hr class="hdng-hr">
     </section>
