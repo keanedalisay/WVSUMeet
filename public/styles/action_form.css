@@ -1,13 +1,10 @@
 .mn {
+  min-height: 48rem;
   height: 80vh;
 }
 .mn--signup {
+  min-height: 67rem;
   height: 100vh;
-}
-.wrap--action_form {
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 .hdng {
@@ -51,7 +48,7 @@
 }
 .form-lbl {
   position: relative;
-  left: 17%;
+  left: 16%;
   display: block;
   float: left;
   clear: both;
@@ -67,7 +64,7 @@
   padding: 0.5rem 1.5rem;
   width: 90%;
   max-width: 32rem;
-  height: 4rem;
+  height: 3.8rem;
   position: relative;
   left: 50%;
   display: block;
@@ -103,9 +100,41 @@
   color: var(--white, #ffffff);
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (min-height: 640px) {
+  .wrap--action_form {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .mn--signup {
+    min-height: 63rem;
+  }
   .hdng-actn {
     padding: 0.3rem 0.7rem;
+    font-size: 4rem;
+  }
+  .hdng-side {
+    margin: 1.7rem 0 0 1rem;
+    font-size: 1.7rem;
+  }
+  .hdng-link {
+    margin: 2rem 0 0 0;
+    font-size: 1.6rem;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .mn {
+    min-height: 42rem;
+  }
+  .mn--signup {
+    min-height: 60rem;
+    height: 100vh;
+  }
+  .hdng-actn {
     font-size: 2.5rem;
   }
   .hdng-side {
@@ -114,6 +143,9 @@
   }
   .hdng-link {
     margin: 2rem 0 0 0;
+    font-size: 1.4rem;
+  }
+  .form-lbl {
     font-size: 1.4rem;
   }
   .form-input {
@@ -125,5 +157,34 @@
     height: 4rem;
     font-size: 1.6rem;
     font-weight: 700;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .mn {
+    min-height: 40rem;
+  }
+  .mn--signup {
+    min-height: 58rem;
+  }
+  .hdng-actn {
+    font-size: 2.2rem;
+  }
+  .hdng-side {
+    font-size: 1.4rem;
+  }
+  .hdng-link {
+    font-size: 1.2rem;
+  }
+  .form-lbl {
+    font-size: 1.3rem;
+  }
+  .form-input {
+    font-size: 1.3rem;
+  }
+  .form-submit {
+    width: 10rem;
+    height: 3.8rem;
+    font-size: 1.4rem;
   }
 }
