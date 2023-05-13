@@ -21,6 +21,16 @@
         </h1>
         <hr class="hdng-hr">
       </section>
+      <section class="infobox">
+        <article class="info">
+          <h1 class="info-lbl">User Count</h1>
+          <p class="info-val">0</p>
+        </article>
+        <article class="info">
+          <h1 class="info-lbl">Message Count</h1>
+          <p class="info-val">0</p>
+        </article>
+      </section>
       <section class="msgbox">
         <div class="wrap wrap--msgs">
           <ol class="msgs" data-slctr="msgbox" tabindex="0" aria-label="Message box">
