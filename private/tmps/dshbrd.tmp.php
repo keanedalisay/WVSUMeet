@@ -24,11 +24,11 @@
       <section class="infobox">
         <article class="info">
           <h1 class="info-lbl">User Count</h1>
-          <p class="info-val">0</p>
+          <p class="info-val" data-slctr="user_cnt_val">0</p>
         </article>
         <article class="info">
           <h1 class="info-lbl">Message Count</h1>
-          <p class="info-val">0</p>
+          <p class="info-val" data-slctr="msg_cnt_val">0</p>
         </article>
       </section>
       <section class="msgbox">
