@@ -12,10 +12,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $user_name = htmlspecialchars($_POST['user_name']);
   $user_pswrd = password_hash(htmlspecialchars($_POST['user_pswrd']), PASSWORD_BCRYPT);
   $user_wid = htmlspecialchars($_POST['user_wid']);
+  $time_joined = time();
 
-  $user_sql = "INSERT INTO users(Name, Password, WVSU_ID) VALUES(?, ?, ?)";
+  $user_sql = "INSERT INTO users(Name, Password, WVSU_ID, Time_Joined) VALUES(?, ?, ?, ?)";
   $prep_sql = mysqli_prepare($conn, $user_sql);
-  mysqli_stmt_bind_param($prep_sql, 'sss', $user_name, $user_pswrd, $user_wid);
+  mysqli_stmt_bind_param($prep_sql, 'sssi', $user_name, $user_pswrd, $user_wid, $time_joined);
   mysqli_stmt_execute($prep_sql);
   mysqli_stmt_close($prep_sql);
 
