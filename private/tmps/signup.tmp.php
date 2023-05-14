@@ -21,19 +21,26 @@
         <a class="hdng-link" href="login.php">or log-in if you already did.</a>
       </section>
       <section class="login">
-        <form class="form" action="signup.php" method="POST">
+        <form class="form" action="signup.php" method="POST" data-slctr="signup-form">
 
           <label for="user_name" class="form-lbl">Name:</label>
-          <input id="user_name" type="text" name="user_name" class="form-input" />
+          <input id="user_name" type="text" name="user_name" class="form-input" required />
 
           <label for="user_wid" class="form-lbl">WVSU-ID:</label>
-          <input id="user_wid" type="text" name="user_wid" class="form-input" />
+          <input id="user_wid" type="text" name="user_wid" class="form-input" required aria-invalid="false"
+            aria-errormessage="user_err_wid" />
+          <p id="user_err_wid" class="form-err_lbl form-err_lbl--hidden" aria-live="assertive" data-slctr="err-lbl-wid">
+          </p>
 
           <label for="user_pswrd" class="form-lbl form-lbl--signup_pswrd">Password:</label>
-          <input id="user_pswrd" type="password" name="user_pswrd" class="form-input" />
+          <input id="user_pswrd" type="password" name="user_pswrd" class="form-input" data-slctr="input-signup-pswrd"
+            aria-invalid="false" aria-errormessage="user_err_pswrd" required />
 
           <label for="user_cnfrm_pswrd" class="form-lbl">Confirm:</label>
-          <input id="user_cnfrm_pswrd" type="password" name="user_cnfrm_pswrd" class="form-input" />
+          <input id="user_cnfrm_pswrd" type="password" name="user_cnfrm_pswrd" class="form-input"
+            data-slctr="input-cnfrm-pswrd" aria-invalid="false" aria-errormessage="user_err_pswrd" required />
+          <p id="user_err_pswrd" class="form-err_lbl form-err_lbl--hidden" aria-live="assertive"
+            data-slctr="err-lbl-pswrd"></p>
 
           <button type="submit" class="form-submit">Sign-Up</button>
         </form>
