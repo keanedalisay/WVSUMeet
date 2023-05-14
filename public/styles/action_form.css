@@ -79,6 +79,24 @@
 .form-input:focus-visible {
   outline: 0.2rem solid var(--denim, #1569ae);
 }
+.form-err_lbl {
+  margin-bottom: 1rem;
+  width: 90%;
+  max-width: 32rem;
+  min-height: 2.5rem;
+  position: relative;
+  left: 10%;
+  display: block;
+  clear: both;
+  color: #ff3232;
+  font-size: 1.4rem;
+}
+.form-err_lbl:last-of-type {
+  margin-bottom: 0;
+}
+.form-err_lbl--hidden {
+  display: none;
+}
 .form-submit {
   margin: 3rem 0 0 0;
   width: 15rem;
@@ -147,6 +165,10 @@
   }
   .form-lbl {
     font-size: 1.4rem;
+  }
+  .form-err_lbl {
+    left: 8%;
+    font-size: 1.2rem;
   }
   .form-input {
     font-size: 1.4rem;
