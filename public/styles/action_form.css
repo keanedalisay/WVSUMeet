@@ -88,7 +88,7 @@
   left: 10%;
   display: block;
   clear: both;
-  color: #ff3232;
+  color: var(--rdornge, #ff3232);
   font-size: 1.4rem;
 }
 .form-err_lbl:last-of-type {
