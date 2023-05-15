@@ -24,23 +24,31 @@
         <form class="form" action="signup.php" method="POST" data-slctr="signup-form">
 
           <label for="user_name" class="form-lbl">Name:</label>
-          <input id="user_name" type="text" name="user_name" class="form-input" required />
+          <input id="user_name" type="text" name="user_name" value="<?php echo $sign_up->getInputName() ?>"
+            class="form-input" required />
 
           <label for="user_wid" class="form-lbl">WVSU-ID:</label>
-          <input id="user_wid" type="text" name="user_wid" class="form-input" required aria-invalid="false"
+          <input id="user_wid" type="text" name="user_wid" value="<?php echo $sign_up->getInputWid() ?>"
+            class="form-input" required aria-invalid="<?php echo $sign_up->setAriaInvalid('err_wid') ?>"
             aria-errormessage="user_err_wid" />
-          <p id="user_err_wid" class="form-err_lbl form-err_lbl--hidden" aria-live="assertive" data-slctr="err-lbl-wid">
+          <p id="user_err_wid" class="form-err_lbl <?php echo $sign_up->setErrClass('err_wid') ?>" aria-live="assertive"
+            data-slctr="err-lbl-wid">
+            <?php echo $sign_up->getErrWid() ?>
           </p>
 
           <label for="user_pswrd" class="form-lbl form-lbl--signup_pswrd">Password:</label>
-          <input id="user_pswrd" type="password" name="user_pswrd" class="form-input" data-slctr="input-signup-pswrd"
-            aria-invalid="false" aria-errormessage="user_err_pswrd" required />
+          <input id="user_pswrd" type="password" name="user_pswrd" value="<?php echo $sign_up->getInputPswrd() ?>"
+            class="form-input" data-slctr="input-signup-pswrd" aria-invalid="false" aria-errormessage="user_err_pswrd"
+            required />
 
           <label for="user_cnfrm_pswrd" class="form-lbl">Confirm:</label>
-          <input id="user_cnfrm_pswrd" type="password" name="user_cnfrm_pswrd" class="form-input"
-            data-slctr="input-cnfrm-pswrd" aria-invalid="false" aria-errormessage="user_err_pswrd" required />
+          <input id="user_cnfrm_pswrd" type="password" name="user_cnfrm_pswrd"
+            value="<?php echo $sign_up->getInputPswrd() ?>" class="form-input" data-slctr="input-cnfrm-pswrd"
+            aria-invalid="false" aria-errormessage="user_err_pswrd" required />
           <p id="user_err_pswrd" class="form-err_lbl form-err_lbl--hidden" aria-live="assertive"
             data-slctr="err-lbl-pswrd"></p>
+
+          <input name="tkn_signup" value="<?php echo $sign_up->getToken() ?>" type="hidden">
 
           <button type="submit" class="form-submit">Sign-Up</button>
         </form>
