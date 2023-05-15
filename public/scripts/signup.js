@@ -10,17 +10,9 @@ const SignUp = () => {
   const isValidPswrd = () =>
     input_signup_pswrd.value === input_cnfrm_pswrd.value;
 
-  const removeErrors = () => {
-    const err_lbls = document.querySelectorAll(".form-err_lbl");
-    err_lbls.forEach((err_lbl) => {
-      err_lbl.textContent = "";
-      err_lbl.classList.add("form-err_lbl--hidden");
-      err_lbl.setAttribute("aria-invalid", "false");
-    });
-  };
-
   const process = (e) => {
     e.preventDefault();
+
     if (isValidPswrd()) {
       form_signup.submit();
       return;
@@ -32,8 +24,6 @@ const SignUp = () => {
 
     input_signup_pswrd.setAttribute("aria-invalid", "true");
     input_cnfrm_pswrd.setAttribute("aria-invalid", "true");
-
-    form_signup.addEventListener("input", removeErrors, { once: true });
   };
 
   const init = () => {
