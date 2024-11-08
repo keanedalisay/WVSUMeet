@@ -3,7 +3,7 @@
   const msg_cnt_val = document.querySelector("[data-slctr=msg_cnt_val]");
 
   const getUserCnt = () => {
-    fetch("http://localhost/meet.wvsu/private/msg_system/ftch_user_cnt.php", {
+    fetch("http://localhost/private/msg_system/ftch_user_cnt.php", {
       method: "GET",
       mode: "cors",
       headers: {
@@ -23,7 +23,7 @@
   };
 
   const getGblMsgCnt = () => {
-    fetch("http://localhost/meet.wvsu/private/msg_system/ftch_msg_cnt.php", {
+    fetch("http://localhost/private/msg_system/ftch_msg_cnt.php", {
       method: "GET",
       mode: "cors",
       headers: {
@@ -51,7 +51,7 @@
   msgbox.scrollTop += msgbox.scrollHeight;
 
   const newGblMsg = () => {
-    fetch("http://localhost/meet.wvsu/private/msg_system/ftch_new_gbl.php", {
+    fetch("http://localhost/private/msg_system/ftch_new_gbl.php", {
       method: "GET",
       mode: "cors",
       headers: {

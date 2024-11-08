@@ -1,5 +1,5 @@
 <?php
-$conn = mysqli_connect('localhost', 'root', '', 'meet.wvsu');
+$conn = mysqli_connect('meet_wvsu_db', 'root', '123', 'meet.wvsu');
 $gbl_msgs_cnt_sql = mysqli_query($conn, 'SELECT COUNT(WVSU_ID) FROM gbl_msgs');
 $gbl_msgs_cnt = mysqli_fetch_row($gbl_msgs_cnt_sql)[0];
 

@@ -37,7 +37,7 @@ class LogIn
 
   private function getUserData()
   {
-    $conn = mysqli_connect('localhost', 'root', '', 'meet.wvsu');
+    $conn = mysqli_connect('meet_wvsu_db', 'root', '123', 'meet.wvsu');
     $san_input_wid = mysqli_escape_string($conn, $this->input_wid);
 
     $user_sql = "SELECT * FROM users WHERE WVSU_ID = '$san_input_wid'";

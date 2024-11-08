@@ -17,12 +17,11 @@ class SignUp
 
   private function isNotUniqueWid()
   {
-    $conn = mysqli_connect('localhost', 'root', '', 'meet.wvsu');
+    $conn = mysqli_connect('meet_wvsu_db', 'root', '123', 'meet.wvsu');
 
     $wid_sql = "SELECT WVSU_ID from users WHERE WVSU_ID = '$this->input_wid'";
     $wid_query = mysqli_query($conn, $wid_sql);
-
-    $wid = mysqli_fetch_assoc($wid_query)['WVSU_ID'];
+    $wid = mysqli_fetch_assoc($wid_query);
     mysqli_free_result($wid_query);
     mysqli_close($conn);
 
@@ -40,7 +39,7 @@ class SignUp
 
   private function postUserData()
   {
-    $conn = mysqli_connect('localhost', 'root', '', 'meet.wvsu');
+    $conn = mysqli_connect('meet_wvsu_db', 'root', '123', 'meet.wvsu');
 
     $input_hshd_pswrd = password_hash($this->input_pswrd, PASSWORD_BCRYPT);
     $time_joined = time();

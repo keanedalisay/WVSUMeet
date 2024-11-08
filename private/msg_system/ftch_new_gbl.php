@@ -3,7 +3,7 @@ require_once('../hlprs/sess.php');
 
 sessStart('CREDS');
 
-$conn = mysqli_connect('localhost', 'root', '', 'meet.wvsu');
+$conn = mysqli_connect('meet_wvsu_db', 'root', '123', 'meet.wvsu');
 $time_sent = $_SESSION['lst_msg_time'];
 $crnt_user_wid = htmlspecialchars($_SESSION['user_wid']);
 
