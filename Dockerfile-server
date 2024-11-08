@@ -1,0 +1,31 @@
+FROM php:8.0-apache
+
+RUN a2enmod rewrite
+
+RUN apt update && apt upgrade -y
+
+RUN apt install -y curl
+
+RUN apt install -y libzip-dev
+RUN apt install -y libpng-dev
+RUN apt install -y libjpeg-dev
+
+RUN pecl install xdebug-3.1.6 && docker-php-ext-enable xdebug
+RUN docker-php-ext-install pdo_mysql && docker-php-ext-enable pdo_mysql
+RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
+RUN docker-php-ext-install zip && docker-php-ext-enable zip
+RUN docker-php-ext-install gd && docker-php-ext-enable gd
+
+COPY --link --chmod=644 docker/apache2/apache2.conf /etc/apache2/
+COPY --link --chmod=644 docker/apache2/sites-available/meet_wvsu.conf /etc/apache2/sites-available/
+# COPY --link docker/apache2/envvars /etc/apache2/
+
+COPY --link --chmod=644 docker/php.ini /usr/local/etc/php/
+
+RUN a2ensite meet_wvsu && a2dissite 000-default
+
+RUN adduser webuser
+RUN adduser --group webgroup
+RUN adduser webuser webgroup
+
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD [ "curl -f http://localhost/" ]

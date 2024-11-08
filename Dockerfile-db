@@ -1,0 +1,12 @@
+FROM mysql:8.0-debian
+
+RUN apt update && apt upgrade -y
+
+COPY --link --chmod=644 /docker/mysql/my.cnf /etc/mysql/my.cnf
+COPY --link meet.wvsu.sql /
+
+RUN adduser webuser
+RUN adduser --group webgroup
+RUN adduser webuser webgroup
+
+ENV MYSQL_ROOT_PASSWORD=123

@@ -1,0 +1,31 @@
+version: '3'
+services:
+  meet_wvsu_server:
+    build:
+      context: '.'
+      dockerfile: 'Dockerfile-server'
+    container_name: 'meet_wvsu_server'
+    depends_on:
+      - 'meet_wvsu_db'
+    networks:
+      - 'backend'
+    ports: 
+      - '80:80'
+    volumes:
+      - './public:/var/www/meet.wvsu/public/'
+      - './private:/var/www/meet.wvsu/private/'
+  meet_wvsu_db:
+    build:
+      context: '.'
+      dockerfile: 'Dockerfile-db'
+    container_name: 'meet_wvsu_db'
+    networks:
+      - 'backend'
+    ports:
+      - '3306:3306'
+    volumes:
+      - 'mysql:/var/lib/mysql'
+networks:
+  backend:
+volumes:
+  mysql:
