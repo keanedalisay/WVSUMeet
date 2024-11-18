@@ -24,3 +24,24 @@ h6,
 p {
   fill: var(--grey-500);
 }
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+}
+
+main {
+  height: 100%;
+}
+
+.sr-only {
+  width: 1px;
+  height: 1px;
+  position: absolute;
+  top: auto;
+  left: -10000px;
+  overflow: hidden;
+}
