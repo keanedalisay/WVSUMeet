@@ -13,7 +13,8 @@ services:
       - '80:80'
     volumes:
       - './public:/var/www/meet.wvsu/public/'
-      - './private:/var/www/meet.wvsu/private/'
+      - './src:/var/www/meet.wvsu/src/'
+      - './vendor:/var/www/meet.wvsu/vendor/'
   meet_wvsu_db:
     build:
       context: '.'
