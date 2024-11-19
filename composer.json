@@ -1,0 +1,20 @@
+{
+    "name": "keanedalisay/wvsumeet",
+    "description": "WVSUMeet is a real-time chat application catered to West Visayas State University (WVSU) students.",
+    "type": "project",
+    "require": {
+        "cboden/ratchet": "^0.4.4"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "WvsuMeet\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "keanedalisay",
+            "email": "keandals21@gmail.com"
+        }
+    ]
+}
