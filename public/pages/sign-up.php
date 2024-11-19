@@ -1,3 +1,11 @@
+<?php 
+use WvsuMeet\SignUp;
+
+if (is_csrf_valid())
+  new SignUp();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

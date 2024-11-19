@@ -9,4 +9,5 @@ get("/sign-up", "pages/sign-up.php");
 get("/log-in", "pages/log-in.php");
 get("/chat", "pages/chat.php");
 
+post("/sign-up", "pages/sign-up.php");
 post("/log-in", "pages/log-in.php");
