@@ -1,0 +1,83 @@
+.mn {
+  height: 85vh;
+  position: relative;
+}
+
+.hdng {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+.hdng-meet {
+  margin: 0 0 2rem;
+  padding: 0 clamp(1rem, 2vw, 1.5rem);
+  float: left;
+  background-color: var(--denim, #1569ae);
+  border-radius: 0.5rem;
+  color: var(--white, #ffffff);
+  font-size: clamp(5rem, 8vw, 10rem);
+  font-weight: 700;
+}
+.hdng-ppl {
+  margin: 0 0 2rem;
+  float: left;
+  clear: left;
+  color: var(--mnshft, #212121);
+  font-size: clamp(2.5rem, 4vw, 5rem);
+}
+.hdng-signup {
+  margin-top: 3rem;
+  padding: clamp(1rem, 1.5vw, 1.5rem) clamp(3rem, 5vw, 5rem);
+  position: relative;
+  left: 25%;
+  float: left;
+  clear: left;
+  background-color: var(--denim, #1569ae);
+  border-radius: 0.5rem;
+  color: var(--white, #ffffff);
+  text-decoration: none;
+  font-size: clamp(2rem, 3vw, 2.8rem);
+  font-weight: 700;
+  transition: background ease-in-out 275ms;
+}
+.hdng-signup:hover,
+.hdng-signup:focus,
+.hdng-signup:focus-visible {
+  background: #1569aea6;
+}
+
+.ptrts {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.ptrts::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  background: #ffffffaa;
+}
+.ptrts-ptrt {
+  position: absolute;
+  border-radius: 1rem;
+  object-fit: cover;
+  z-index: -1;
+  opacity: 0;
+  animation: ptrt_fade 15s ease-in-out infinite;
+}
+
+@keyframes ptrt_fade {
+  50% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

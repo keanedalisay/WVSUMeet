@@ -1,0 +1,193 @@
+.mn {
+  margin: 1rem auto;
+  padding: 0 1rem;
+  width: 100%;
+  max-width: 60rem;
+  min-height: 40rem;
+  height: 90vh;
+  position: relative;
+}
+.hdng {
+  position: relative;
+}
+.hdng-user {
+  font-size: 4.5rem;
+  text-align: center;
+}
+.hdng-hr {
+  margin: 0.5rem 0;
+  width: 80%;
+  height: 0.3rem;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--denim, #1569ae);
+}
+
+.infobox {
+  margin: 3rem 0 3rem 0;
+  height: 7rem;
+  text-align: center;
+}
+.info {
+  margin-right: 3rem;
+  display: inline-block;
+}
+.info:last-child {
+  margin-right: 0;
+}
+.info-lbl {
+  padding: 1rem;
+  background: var(--denim, #1569ae);
+  border-radius: 1rem;
+  color: var(--white, #ffffff);
+  font-size: 1.4rem;
+  text-align: center;
+}
+.info-val {
+  position: relative;
+  top: 0.5rem;
+  color: var(--denim, #1569ae);
+  font-size: 3rem;
+  font-weight: 700;
+  text-align: center;
+}
+.msgbox {
+  padding: 2rem;
+  min-height: 30rem;
+  height: 65vh;
+  max-height: 60rem;
+  background: var(--wldsnd, #f4f4f4);
+  border-radius: 0.5rem;
+}
+.wrap--msgs {
+  margin-bottom: 1rem;
+  height: 80%;
+}
+.msgs {
+  padding: 1rem 0.5rem 0 0;
+  width: 100%;
+  max-height: 100%;
+  position: absolute;
+  bottom: 0;
+  list-style: none;
+  overflow-y: auto;
+}
+.msgs:focus,
+.msgs:focus-visible {
+  outline-width: 0.2rem;
+  outline-style: solid;
+  outline-color: var(--denim, #1569ae);
+}
+.msg {
+  padding: 1rem;
+  margin: 1.5rem 0 1.5rem 0;
+  max-width: 60%;
+  clear: both;
+  position: relative;
+  border-radius: 0.5rem;
+}
+.msg--user {
+  margin-left: 40%;
+  float: right;
+  background: #1569ae21;
+}
+.msg--others {
+  margin-right: 40%;
+  float: left;
+  background: var(--white, #ffffff);
+}
+.msg-athr {
+  position: absolute;
+  top: -2rem;
+  color: var(--grey, #8c8c8c);
+  font-size: 1.2rem;
+  font-style: normal;
+  white-space: nowrap;
+}
+.msg-ctnt {
+  font-size: 1.4rem;
+  word-wrap: break-word;
+}
+.wdgt {
+  height: 20%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+.wdgt-input {
+  padding: 1rem;
+  margin-right: 2rem;
+  width: 75%;
+  min-height: 5rem;
+  height: 60%;
+  max-height: 7.5rem;
+  border-radius: 0.5rem;
+  font-size: 1.4rem;
+  resize: none;
+}
+.wdgt-input:focus,
+.wdgt-input:focus-visible {
+  outline: 0.2rem solid var(--denim, #1569ae);
+}
+.wdgt-sbmt {
+  width: 3.5rem;
+  height: 3.5rem;
+  position: relative;
+  background: #1569ae59;
+  border-radius: 100%;
+  transition: background ease-in-out 275ms;
+}
+.wdgt-sbmt:hover,
+.wdgt-sbmt:focus,
+.wdgt-sbmt:focus-visible {
+  background: #1569ae9a;
+}
+.wdgt-sbmt > img {
+  margin: 0 0 0 0.2rem;
+  width: 1.8rem;
+  height: 1.8rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@media screen and (min-height: 430px) {
+  .wrap--dshbrd {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .hdng-user {
+    font-size: 3.5rem;
+  }
+  .msg {
+    margin: 1.2rem 0 1.2rem 0;
+  }
+  .msg-athr {
+    top: -1.5rem;
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .hdng-hr {
+    height: 0.1rem;
+  }
+  .msg-ctnt {
+    font-size: 1.2rem;
+  }
+  .wdgt-input {
+    font-size: 1.2rem;
+  }
+}
+@media screen and (max-width: 400px) {
+  .hdng-user {
+    font-size: 2.5rem;
+  }
+}
