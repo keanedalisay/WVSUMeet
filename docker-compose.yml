@@ -11,6 +11,7 @@ services:
       - 'backend'
     ports: 
       - '80:80'
+      - '8080:8080'
     volumes:
       - './public:/var/www/meet.wvsu/public/'
       - './src:/var/www/meet.wvsu/src/'
