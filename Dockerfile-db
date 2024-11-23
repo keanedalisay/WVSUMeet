@@ -3,6 +3,7 @@ FROM mysql:8.0-debian
 RUN apt update && apt upgrade -y
 
 COPY --link --chmod=644 /docker/mysql/my.cnf /etc/mysql/my.cnf
+COPY --link --chmod=777 /docker/mysql/error.log /var/log/mysql/error.log
 COPY --link meet.wvsu.sql /
 
 RUN adduser webuser
