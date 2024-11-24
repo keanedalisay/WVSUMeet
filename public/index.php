@@ -11,3 +11,5 @@ get("/chat", "pages/chat.php");
 
 post("/sign-up", "pages/sign-up.php");
 post("/log-in", "pages/log-in.php");
+
+post("/api/chats/global", "pages/chat.php");
