@@ -14,13 +14,13 @@ if (is_csrf_valid())
 </head>
 <body>
   <form action="/log-in" method="post">
-    <label for="user-wvsuid">
+    <label for="user_wvsuid">
       WVSU-ID
-      <input type="text" name="user-wvsuid">
+      <input type="text" name="user_wvsuid">
     </label>
-    <label for="user-password">
+    <label for="user_password">
       Password
-      <input type="password" name="user-password">
+      <input type="password" name="user_password">
     </label>
     <?= set_csrf(); ?>
     <button type="submit">
