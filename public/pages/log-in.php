@@ -3,6 +3,13 @@ use WvsuMeet\LogIn;
 
 session_start();
 
+if ($_SERVER['REQUEST_URI'] === "/log-out") {
+  session_unset();
+  session_destroy();
+  header("Location: /log-in");
+  exit;
+}
+
 if (isset($_SESSION["has_logged_in"]) && $_SESSION["has_logged_in"] === true) {
   header("Location: /chat");
   exit;

@@ -7,6 +7,7 @@ session_name("WVSUMeet");
 get("/", "pages/index.php");
 get("/sign-up", "pages/sign-up.php");
 get("/log-in", "pages/log-in.php");
+get("/log-out", "pages/log-in.php");
 get("/chat", "pages/chat.php");
 
 post("/sign-up", "pages/sign-up.php");
