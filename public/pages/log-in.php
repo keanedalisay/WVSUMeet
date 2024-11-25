@@ -1,6 +1,13 @@
 <?php
 use WvsuMeet\LogIn;
 
+session_start();
+
+if (isset($_SESSION["has_logged_in"]) && $_SESSION["has_logged_in"] === true) {
+  header("Location: /chat");
+  exit;
+}
+
 if (is_csrf_valid())
   new LogIn();
 ?>
