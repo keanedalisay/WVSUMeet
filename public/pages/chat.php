@@ -1,8 +1,6 @@
 <?php
 use WvsuMeet\GlobalChat;
 
-session_start();
-
 if (empty($_SESSION["has_logged_in"])) {
   header("Location: /log-in");
   exit;
