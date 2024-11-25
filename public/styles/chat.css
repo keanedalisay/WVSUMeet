@@ -19,7 +19,7 @@ main {
 }
 
 .profile {
-  padding: 0 20px;
+  padding: 0 10px;
   height: 50px;
   border-radius: 10px;
   background: var(--white);
@@ -41,13 +41,13 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: var(--grey-100);
+  background: #3E82CD;
   border-radius: 10px;
 }
 .profile__img > svg {
   width: 20px;
   height: 20px;
-  fill: #8c8c8c;
+  fill: var(--white);
 }
 .profile__chevron {
   margin: 0 0 0 10px;
