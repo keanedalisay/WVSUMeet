@@ -108,7 +108,6 @@ function set_csrf()
 
 function is_csrf_valid()
 {
-	session_start();
 	if (!isset($_SESSION['csrf']) || !isset($_POST['csrf'])) {
 		return false;
 	}

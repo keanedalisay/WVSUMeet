@@ -1,8 +1,6 @@
 <?php
 use WvsuMeet\LogIn;
 
-session_start();
-
 if ($_SERVER['REQUEST_URI'] === "/log-out") {
   session_unset();
   session_destroy();
