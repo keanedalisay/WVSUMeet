@@ -33,6 +33,7 @@ if (filter_has_var(INPUT_POST, "chat_type")) {
   <title>WVSUMeet</title>
   <link href="../styles/global.css" rel="stylesheet" />
   <link href="../styles/chat.css" rel="stylesheet" />
+  <script src="../scripts/chat.js" type="module"></script>
   <?php if (empty($_SESSION["chat_type"]) || $_SESSION["chat_type"] === "global"): ?>
     <script src="../scripts/global-chat.js" type="module"></script>
   <?php endif; ?>
@@ -41,7 +42,7 @@ if (filter_has_var(INPUT_POST, "chat_type")) {
 <body>
   <header class="header">
     <a class="header__logo" href="#"><img src="../assets/images/wvsumeet.png" alt="" /></a>
-    <button class="profile">
+    <button class="profile" data-js="profile-button">
       <div class="profile__img">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
           <path
@@ -49,6 +50,10 @@ if (filter_has_var(INPUT_POST, "chat_type")) {
         </svg>
       </div>
       <?= $_SESSION["user_name"] ?>
+      <menu class="dropdown dropdown--profile" data-js="profile-dropdown">
+        <a href="/chat/profile">Profile</a>
+        <a href="/log-out">Log out</a>
+      </menu>
     </button>
   </header>
   <main>

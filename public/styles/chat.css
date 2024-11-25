@@ -21,6 +21,7 @@ main {
 .profile {
   padding: 0 10px;
   height: 50px;
+  position: relative;
   border-radius: 10px;
   background: var(--white);
   display: flex;
@@ -31,6 +32,10 @@ main {
 }
 
 .profile:hover {
+  background: var(--grey-100);
+}
+
+.profile--open {
   background: var(--grey-100);
 }
 
@@ -53,6 +58,47 @@ main {
   margin: 0 0 0 10px;
   min-width: 25px;
   min-height: 25px;
+}
+
+.dropdown {
+  position: absolute;
+  visibility: hidden;
+}
+
+.dropdown--open {
+  visibility: visible;
+}
+
+.dropdown::before {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+}
+
+.dropdown > a {
+  padding: 5px 10px;
+  display: block;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.dropdown--profile {
+  width: 200px;
+  padding: 5px 0;
+  top: 70px;
+  right: 0;
+  background: #3E82CD;
+  border-radius: 10px;
+}
+
+.dropdown--profile > a {
+  color: #FFFFFF;
+  font-weight: 600;
+  text-align: left;
+}
+
+.dropdown--profile > a:hover {
+  color: var(--grey-100);
 }
 
 .chat-sidebar {
@@ -366,6 +412,9 @@ main {
   main {
     position: relative;
   }
+  .dropdown--profile {
+    z-index: 1;
+  }
   .chat-sidebar {
     max-width: 100vw;
     position: absolute;
@@ -395,6 +444,10 @@ main {
 @media screen and (max-width: 600px) {
   main {
     height: calc(100vh - 130px);
+  }
+  .dropdown--profile {
+    left: 50%;
+    transform: translateX(-50%);
   }
   .header {
     padding: 10px 20px;
