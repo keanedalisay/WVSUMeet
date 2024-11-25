@@ -1,3 +1,14 @@
+<?php
+
+session_start();
+
+if (isset($_SESSION["has_logged_in"]) && $_SESSION["has_logged_in"] === true) {
+  header("Location: /chat");
+  exit;
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

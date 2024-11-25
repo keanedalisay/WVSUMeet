@@ -3,6 +3,11 @@ use WvsuMeet\GlobalChat;
 
 session_start();
 
+if (empty($_SESSION["has_logged_in"])) {
+  header("Location: /log-in");
+  exit;
+}
+
 if (empty($_SESSION["chat_type"])) {
   $_SESSION["chat_type"] = "global";
   $_SESSION["chat_api"] = "/api/chats/global";
