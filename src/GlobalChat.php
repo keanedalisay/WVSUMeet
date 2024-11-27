@@ -76,16 +76,16 @@ class GlobalChat
               <div class='chat-btn-details'>
                 <p class='chat-btn-details__name'><b>Global Chat</b></p>
                 <p class='chat-btn-details__last-msg'>$user_last_name: $msg</p>";
-    if ($interval->h < 1)
-      echo "  <time class='chat-btn-details__last-sent'><span class='sr-only'>Last sent </span>$interval->i min ago</time>";
-    else if ($interval->d < 1)
-      echo "  <time class='chat-btn-details__last-sent'><span class='sr-only'>Last sent </span>$interval->h hours ago</time>";
-    else if ($interval->d < 2)
-      echo "  <time class='chat-btn-details__last-sent'><span class='sr-only'>Last sent </span>$interval->d day ago</time>";
-    else if ($interval->m < 1)
-      echo "  <time class='chat-btn-details__last-sent'><span class='sr-only'>Last sent </span>$interval->d month ago</time>";
-    else
+    if ($interval->m > 1)
       echo "  <time class='chat-btn-details__last-sent'><span class='sr-only'>Last sent </span>$interval->m months ago</time>";
+    else if ($interval->m <= 1)
+      echo "  <time class='chat-btn-details__last-sent'><span class='sr-only'>Last sent </span>$interval->d days ago</time>";
+    else if ($interval->d <= 1)
+      echo "  <time class='chat-btn-details__last-sent'><span class='sr-only'>Last sent </span>$interval->h hours ago</time>";
+    else if ($interval->h <= 1)
+      echo "  <time class='chat-btn-details__last-sent'><span class='sr-only'>Last sent </span>$interval->i mins ago</time>";
+    else 
+      echo "  <time class='chat-btn-details__last-sent'><span class='sr-only'>Last sent </span>$interval->i min ago</time>";
     // <span class="chat-btn-details__unread-msgs">20<span class="sr-only">new messages</span>
     echo "
               </div>
