@@ -65,6 +65,13 @@ main {
 .chat-btn:hover {
   background: var(--grey-100);
 }
+.chat-btn--selected {
+  background: #FFF0BD;
+}
+.chat-btn--selected:hover {
+  background: #FFF0BD;
+  opacity: 0.8;
+}
 .chat-btn-details {
   width: 100%;
   margin: 0 0 0 10px;
