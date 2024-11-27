@@ -12,14 +12,10 @@ buttonCancelUserProfile.addEventListener("click", (e) => {
 });
 
 const inputUserName = document.querySelector("[data-js=input-user-name]");
-const inputUserWvsuid = document.querySelector("[data-js=input-user-wvsuid]");
 const buttonSaveUserDetails = document.querySelector("[data-js=button-user-details-save]");
 const buttonCancelUserDetails = document.querySelector("[data-js=button-user-details-cancel]");
 
 inputUserName.addEventListener("input", (e) => {
-  buttonSaveUserDetails.parentElement.classList.remove("form__controls--hide");
-});
-inputUserWvsuid.addEventListener("input", (e) => {
   buttonSaveUserDetails.parentElement.classList.remove("form__controls--hide");
 });
 
