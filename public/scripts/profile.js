@@ -4,7 +4,7 @@ const buttonSaveUserProfile = document.querySelector("[data-js=button-user-profi
 const buttonCancelUserProfile = document.querySelector("[data-js=button-user-profile-cancel]");
 
 const profileImg = document.querySelector("[data-js=user-profile]");
-let userProfile = profileImg.getAttribute("src") || "";
+let userProfile = !profileImg.classList.contains("user-profile--hide") ? profileImg.getAttribute("src") : "";
 
 inputUserProfile.addEventListener("input", () => {
   buttonSaveUserProfile.parentElement.classList.remove("form__controls--hide");
@@ -25,11 +25,12 @@ buttonCancelUserProfile.addEventListener("click", (e) => {
   buttonSaveUserProfile.parentElement.classList.add("form__controls--hide");
   const profileNoImg = document.querySelector("[data-js=user-default-profile]");
   
-  if (!profileImg.classList.contains("user-profile--hide")) {
+  if (userProfile === "") {
     profileNoImg.classList.remove("user-profile--hide");
     profileImg.classList.add("user-profile--hide");
   }
-  else profileImg.setAttribute("src", userProfile);
+  else 
+    profileImg.setAttribute("src", userProfile);
 
 });
 
