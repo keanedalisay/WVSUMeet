@@ -1,5 +1,13 @@
 const ws = new WebSocket("ws://localhost:8080");
 
+ws.onopen = (e) => {
+  console.log("Connection open!");
+}
+
+ws.onerror = (e) => {
+  console.log("error!");
+}
+
 const chatbox = document.querySelector("[data-js=chatbox]");
 const chatbar = document.querySelector("[data-js=chatbar]");
 
@@ -15,10 +23,10 @@ chatbar.addEventListener('submit', (e) => {
   const lastMsg = document.querySelector(".msg:last-of-type");
 
   const jsonMessage = `{ 
-    "name": "${message.get('user-name')}",
-    "wvsuid":  "${message.get('user-wvsuid')}",
-    "chat_type": "${message.get('chat-type')}",
-    "msg": "${message.get('user-msg')}"
+    "name": "${message.get('user_name')}",
+    "wvsuid":  "${message.get('user_wvsuid')}",
+    "chat_type": "${message.get('chat_type')}",
+    "msg": "${message.get('user_msg')}"
   }`;
 
   chatbox.insertAdjacentHTML(
@@ -28,11 +36,11 @@ chatbar.addEventListener('submit', (e) => {
         messages.length < 1 && !lastMsg ? "You"
         : messages.length < 1 && lastMsg.classList.contains('msg--others') ? "You" 
         : messages.length < 1 && lastMsg.classList.contains('msg--user') ? "" 
-        : messages[messages.length - 1].name === message.get("user-name") ? "" 
+        : messages[messages.length - 1].name === message.get("user_name") ? "" 
         : "You"
           }</cite>
       <blockquote class='msg-ctnt'>
-      ${message.get('user-msg')}
+      ${message.get('user_msg')}
       </blockquote>
   </li>`
   );
@@ -41,7 +49,7 @@ chatbar.addEventListener('submit', (e) => {
 
   chatbox.scrollTo(0, chatbox.scrollHeight);
   chatbar.reset();
-
+  
   ws.send(jsonMessage);
 });
 
