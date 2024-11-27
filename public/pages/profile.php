@@ -5,6 +5,17 @@ if (empty($_SESSION["has_logged_in"])) {
   exit;
 }
 
+if (filter_has_var(INPUT_POST, "user_name") && $_SERVER["REQUEST_URI"] === "/api/user/profile/details") {
+  $conn = mysqli_connect("meet_wvsu_db", "root", "123", "meet.wvsu");
+
+  if ($_POST["user_name"] !== $_SESSION["user_name"])
+    mysqli_query($conn, "UPDATE users SET Name = '$_POST[user_name]' WHERE WVSU_ID = '$_SESSION[user_wvsuid]';");
+  
+  $_SESSION["user_name"] = $_POST["user_name"];
+
+  header("Location: /chat/profile");
+  exit;
+}
 
 if (isset($_FILES["user_profile_img"]) && $_SERVER["REQUEST_URI"] === "/api/user/profile/img") {
   $date = date("Y-m-d");
@@ -105,14 +116,14 @@ if (isset($_FILES["user_profile_img"]) && $_SERVER["REQUEST_URI"] === "/api/user
         </button>
       </fieldset>
     </form>
-    <form action="/api/user/profile/details">
+    <form action="/api/user/profile/details" method="post">
       <label>
         Name
         <input type="text" data-js="input-user-name" name="user_name" value="<?= $_SESSION["user_name"] ?>" />
       </label>
       <label>
-        WVSU ID
-        <input type="text" data-js="input-user-wvsuid" name="user_wvsuid" value="<?= $_SESSION["user_wvsuid"] ?>" />
+        WVSU ID 
+        <input type="text" data-js="input-user-wvsuid" name="user_wvsuid" value="<?= $_SESSION["user_wvsuid"] ?>" readonly />
       </label>
       <fieldset class="form__controls form__controls--hide">
         <button class="button button--save" type="submit" data-js="button-user-details-save">
