@@ -78,11 +78,11 @@ class GlobalChat
                 <p class='chat-btn-details__last-msg'>$user_last_name: $msg</p>";
     if ($interval->m > 1)
       echo "  <time class='chat-btn-details__last-sent'><span class='sr-only'>Last sent </span>$interval->m months ago</time>";
-    else if ($interval->m <= 1)
+    else if ($interval->d > 1)
       echo "  <time class='chat-btn-details__last-sent'><span class='sr-only'>Last sent </span>$interval->d days ago</time>";
-    else if ($interval->d <= 1)
+    else if ($interval->h > 1)
       echo "  <time class='chat-btn-details__last-sent'><span class='sr-only'>Last sent </span>$interval->h hours ago</time>";
-    else if ($interval->h <= 1)
+    else if ($interval->m > 1)
       echo "  <time class='chat-btn-details__last-sent'><span class='sr-only'>Last sent </span>$interval->i mins ago</time>";
     else 
       echo "  <time class='chat-btn-details__last-sent'><span class='sr-only'>Last sent </span>$interval->i min ago</time>";
