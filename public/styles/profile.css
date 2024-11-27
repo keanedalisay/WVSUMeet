@@ -1,0 +1,140 @@
+main {
+  margin: 0 auto;
+  padding: 50px 20px;
+  width: 100%;
+  max-width: 500px;
+}
+
+h1 {
+  margin: 0 0 10px 0;
+  font-size: 40px;
+}
+h2 {
+  margin: 0 0 10px 0;
+  font-size: 30px;
+}
+
+form {
+  margin: 20px 0;
+  display: flex;
+  flex-flow: column wrap;
+}
+form > label {
+  margin: 5px 0;
+  display: flex;
+  flex-flow: column wrap;
+  font-size: 20px;
+  font-weight: 700;
+}
+form > label > input {
+  margin: 10px 0;
+  padding: 5px 10px;
+  width: 100%;
+  max-width: 500px;
+  height: 40px;
+  background: var(--grey-100);
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+.form__controls {
+  display: flex;
+  flex-flow: row wrap;
+}
+.form__controls > .button {
+  margin: 10px 20px 0 0;
+}
+.form__controls--hide {
+  display: none;
+}
+
+.user-profile {
+  margin: 10px 0;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--grey-100);
+  border-radius: 10px;
+}
+.user-profile > svg {
+  width: 50px;
+  height: 50px;
+  fill: #8c8c8c;
+}
+.user-profile--hide {
+  display: none;
+}
+
+.button {
+  margin: 10px 0;
+  min-width: 100px;
+  width: fit-content;
+  padding: 10px 20px;
+  display: inline-block;
+  border-radius: 10px;
+  border: 1px solid #3E82CD;
+  background: var(--white);
+  color:#3E82CD;
+  font-size: 16px;
+  font-weight: 700;
+}
+.button--save {
+  border: none;
+  background: #1e9c1e;
+  color: var(--white);
+}
+.button--cancel {
+  border: none;
+  background: var(--white);
+  border: 1px solid #b60000;
+  color: #b60000;
+}
+.button--danger {
+  background: #b60000;
+  color: white;
+  border: none;
+}
+
+.button:hover {
+  background: var(--grey-100);
+}
+.button--save:hover {
+  background: #257d25;
+  color: var(--white);
+}
+.button--danger:hover {
+  background: #7d0000;
+}
+
+.account-settings {
+  margin: 40px 0 0 0;
+  padding: 20px 0 0 0;
+  border-top: 2px solid var(--grey-200);
+  display: flex;
+  flex-flow: column wrap;
+  align-items: flex-start;
+}
+
+@media only screen and (max-width: 700px) {
+  h1 {
+    font-size: 30px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  form > label {
+    font-size: 16px;
+  }
+  form > label > input {
+    font-size: 16px;
+  }
+
+    
+  .button {
+    font-size: 14px;
+  }
+}
