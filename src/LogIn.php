@@ -16,6 +16,7 @@ class LogIn {
     if ($is_valid_pswrd) {
       $_SESSION["user_name"] = $user["Name"];
       $_SESSION["user_wvsuid"] = $user["WVSU_ID"];
+      $_SESSION["user_profile"] = $user["Profile"];
       $_SESSION["has_logged_in"] = true;
 
       header("Location: /chat");
