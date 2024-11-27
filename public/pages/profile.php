@@ -45,15 +45,16 @@ if (isset($_FILES["user_profile_img"]) && $_SERVER["REQUEST_URI"] === "/api/user
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>WVSUMeet | Profile</title>
-  <link href="../styles/global.css" rel="stylesheet" />
-  <link href="../styles/profile.css" rel="stylesheet" />
+  <link href="/styles/global.css" rel="stylesheet" />
+  <link href="/styles/profile.css" rel="stylesheet" />
+  <script src="../scripts/global.js" type="module"></script>
   <script src="../scripts/profile.js" type="module"></script>
 </head>
 
 <body>
   <header class="header">
-    <a class="header__logo" href="#"><img src="../assets/images/wvsumeet.png" alt="" /></a>
-    <button class="profile">
+    <a class="header__logo" href="/chat"><img src="../assets/images/wvsumeet.png" alt="" /></a>
+    <button class="profile" data-js="profile-button">
       <?php if (empty($_SESSION["user_profile"])): ?>
         <div class="profile__img">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
