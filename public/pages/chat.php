@@ -31,7 +31,7 @@ if (filter_has_var(INPUT_POST, "chat_type")) {
   <title>WVSUMeet</title>
   <link href="../styles/global.css" rel="stylesheet" />
   <link href="../styles/chat.css" rel="stylesheet" />
-  <script src="../scripts/chat.js" type="module"></script>
+  <script src="../scripts/global.js" type="module"></script>
   <?php if (empty($_SESSION["chat_type"]) || $_SESSION["chat_type"] === "global"): ?>
     <script src="../scripts/global-chat.js" type="module"></script>
   <?php endif; ?>
@@ -39,7 +39,7 @@ if (filter_has_var(INPUT_POST, "chat_type")) {
 
 <body>
   <header class="header">
-    <a class="header__logo" href="#"><img src="../assets/images/wvsumeet.png" alt="" /></a>
+    <a class="header__logo" href="/chat"><img src="../assets/images/wvsumeet.png" alt="" /></a>
     <button class="profile" data-js="profile-button">
       <?php if (empty($_SESSION["user_profile"])): ?>
         <div class="profile__img">
