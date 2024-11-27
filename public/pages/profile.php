@@ -5,6 +5,37 @@ if (empty($_SESSION["has_logged_in"])) {
   exit;
 }
 
+
+if (isset($_FILES["user_profile_img"]) && $_SERVER["REQUEST_URI"] === "/api/user/profile/img") {
+  $date = date("Y-m-d");
+  $parent_dir = "/assets/";
+
+  print_r($parent_dir);
+
+  if (is_dir(dirname(__DIR__) . $parent_dir)) {
+    print_r("\n" . $parent_dir);
+    $date_values = explode("-", $date);
+    $dir_to_store = $parent_dir . "profiles/" . $date_values[0] . "/" . $date_values[1] . "/" . $date_values[2];
+    $final_file_name = $dir_to_store . "/" . $_FILES["user_profile_img"]["name"];
+
+    if (!is_dir($dir_to_store))
+      mkdir(dirname(__DIR__) . $dir_to_store . "/", 0755, true);
+
+    if (is_uploaded_file($_FILES["user_profile_img"]["tmp_name"])) {
+      print_r("\n" . $parent_dir);
+      move_uploaded_file($_FILES["user_profile_img"]["tmp_name"],dirname(__DIR__) . $final_file_name);
+
+      $conn = mysqli_connect("meet_wvsu_db", "root", "123", "meet.wvsu");
+      mysqli_query($conn, "UPDATE users SET Profile = '$final_file_name' WHERE WVSU_ID = '$_SESSION[user_wvsuid]';");
+
+      $_SESSION["user_profile"] = $final_file_name;
+    }
+  }
+
+  header("Location: /chat/profile");
+  exit;
+}
+
 ?>
 
 <!DOCTYPE html>
