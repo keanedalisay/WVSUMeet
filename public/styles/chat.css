@@ -206,6 +206,12 @@ main {
   font-size: 18px;
   word-wrap: break-word;
 }
+.msg-ctnt > a > img {
+  width: 100%;
+  max-width: 300px;
+  object-fit: cover;
+}
+
 .chatbar {
   padding: 0 20px;
   height: 15%;
