@@ -81,8 +81,12 @@ class GlobalChat
             <button class='chat-btn chat-btn--selected' type='submit'>
               <img class='chat-btn__profile' src='../assets/images/global-chat.png' alt=''>
               <div class='chat-btn-details'>
-                <p class='chat-btn-details__name'><b>Global Chat</b></p>
-                <p class='chat-btn-details__last-msg'>$user_last_name: $msg</p>";
+                <p class='chat-btn-details__name'><b>Global Chat</b></p>";
+    if (file_exists(dirname(__DIR__)."/public/".$msg))
+      echo "<p class='chat-btn-details__last-msg'>$user_last_name sent an image</p>";
+    else
+      echo "<p class='chat-btn-details__last-msg'>$user_last_name: $msg</p>";
+
     if ($interval->m > 1)
       echo "  <time class='chat-btn-details__last-sent'><span class='sr-only'>Last sent </span>$interval->m months ago</time>";
     else if ($interval->d > 1)
