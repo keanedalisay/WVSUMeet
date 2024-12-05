@@ -118,7 +118,7 @@ if (filter_has_var(INPUT_POST, "chat_type")) {
           ?>
         </ol>
       </div>
-      <form class="chatbar" data-js="chatbar" action="<?= $_SESSION["chat_api"] ?></form>" method="post">
+      <form class="chatbar" data-js="chatbar" action="<?= $_SESSION["chat_api"] ?></form>" enctype="multipart/form-data" method="post">
         <input type="hidden" name="chat_type" value="<?= $_SESSION["chat_type"] ?>">
         <input type="hidden" name="user_name" value="<?= $_SESSION["user_name"] ?>">
         <input type="hidden" name="user_wvsuid" value="<?= $_SESSION["user_wvsuid"] ?>">
@@ -128,7 +128,7 @@ if (filter_has_var(INPUT_POST, "chat_type")) {
             <path fill-rule="evenodd" clip-rule="evenodd"
               d="M2.6665 7.16675C2.6665 4.95761 4.45737 3.16675 6.6665 3.16675H25.3332C27.5423 3.16675 29.3332 4.95761 29.3332 7.16675V25.8334C29.3332 28.0426 27.5423 29.8334 25.3332 29.8334H6.6665C4.45736 29.8334 2.6665 28.0426 2.6665 25.8334V7.16675ZM25.444 27.1622C26.0874 27.1093 26.0765 26.2951 25.6405 25.8189L14.0919 13.2066C12.4555 11.4214 9.62072 11.4884 8.0704 13.3487L5.64221 16.2626C5.44253 16.5022 5.33317 16.8042 5.33317 17.1161V25.8334C5.33317 26.5698 5.93012 27.1667 6.6665 27.1667H25.3332C25.3705 27.1667 25.4074 27.1652 25.444 27.1622ZM22.6665 12.5001C24.1393 12.5001 25.3332 11.3062 25.3332 9.83342C25.3332 8.36066 24.1393 7.16675 22.6665 7.16675C21.1937 7.16675 19.9998 8.36066 19.9998 9.83342C19.9998 11.3062 21.1937 12.5001 22.6665 12.5001Z" />
           </svg>
-          <input type="file" id="user_files">
+          <input type="file" id="user_files" name="user_files" accept="image/*">
         </label>
         <label class="sr-only" for="user_msg">Write a message</label>
         <textarea class="chatbar__text-input" id="user_msg" name="user_msg"
