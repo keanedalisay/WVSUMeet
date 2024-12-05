@@ -89,6 +89,43 @@ chatbar.addEventListener('submit', async (e) => {
   ws.send(JSON.stringify(jsonMessage));
 });
 
+const wrapMessages = document.querySelector("[data-js=wrap-msgs]");
+const divUploadedFiles = document.querySelector("[data-js=div-uploaded-files]");
+const inputUserFiles = document.querySelector("[data-js=input-user-files]");
+
+let uploadedFiles = [];
+
+inputUserFiles.addEventListener("input", (e) => {
+  const userFiles = e.target.files;
+
+  divUploadedFiles.insertAdjacentHTML("beforeend", `
+    <figure class="uploaded-file" data-uploaded-file="${uploadedFiles.length}">
+      <button class="uploaded-file__rmv-btn" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M23.954 21.03l-9.184-9.095 9.092-9.174-2.832-2.807-9.09 9.179-9.176-9.088-2.81 2.81 9.186 9.105-9.095 9.184 2.81 2.81 9.112-9.192 9.18 9.1z"/></svg></button>
+      <img class="uploaded-file__img" src="${URL.createObjectURL(userFiles[0])}">
+    </figure>
+  `);
+
+  uploadedFiles.push(userFiles[0]);
+  
+  divUploadedFiles.classList.remove("chatbar__uploaded-files--hide");
+  wrapMessages.style.height = "65%";
+  chatbar.style.height = "25%"; 
+});
+
+divUploadedFiles.addEventListener("click", (e) => {
+  console.log(e.target);
+  if (e.target.classList.contains("uploaded-file__rmv-btn")) {
+    const index = e.target.parentElement.dataset.uploadedFile;
+    uploadedFiles = uploadedFiles.splice(index + 1, 1);
+    e.target.parentElement.remove();
+
+    divUploadedFiles.classList.add("chatbar__uploaded-files--hide");
+    wrapMessages.style.height = "75%";
+    chatbar.style.height = "15%"; 
+  }
+});
+
+
 ws.onmessage = async (e) => {
 
   async function dataUrlToFile(dataUrl, fileName) {
