@@ -46,7 +46,7 @@ if (is_csrf_valid())
       </button>
     </form>
     <p class="already-have-account">
-      Don't have an account? <span class="signup-link">Sign Up</span>
+      Don't have an account? <a class="signup-link" href="/sign-up">Sign Up</a>
     </p>
   </div>
 

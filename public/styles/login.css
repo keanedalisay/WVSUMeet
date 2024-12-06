@@ -155,7 +155,7 @@ a:hover {
     color: #666;
 }
 
-.login-link {
+.signup-link {
     font-family: 'Open Sans', sans-serif;
     font-size: 19px;
     font-weight: 700;
@@ -167,7 +167,7 @@ a:hover {
     cursor: pointer;
 }
 
-.login-link:hover {
+.signup-link:hover {
     text-decoration: underline;
 }
 
