@@ -109,7 +109,7 @@ if (filter_has_var(INPUT_POST, "chat_type")) {
         <img class="chatbox-details__profile" src="../assets/images/global-chat.png" alt="">
         <h2 class="chatbox-details__name">Global Chat</h2>
       </div>
-      <div class="wrap wrap--msgs">
+      <div class="wrap wrap--msgs" data-js="wrap-msgs">
         <ol class="msgs" data-js="chatbox" tabindex="0" aria-label="Message box">
           <?php
           if ($_SESSION["chat_type"] === "global") {
@@ -118,28 +118,47 @@ if (filter_has_var(INPUT_POST, "chat_type")) {
           ?>
         </ol>
       </div>
-      <form class="chatbar" data-js="chatbar" action="<?= $_SESSION["chat_api"] ?></form>" method="post">
-        <input type="hidden" name="chat_type" value="<?= $_SESSION["chat_type"] ?>">
-        <input type="hidden" name="user_name" value="<?= $_SESSION["user_name"] ?>">
-        <input type="hidden" name="user_wvsuid" value="<?= $_SESSION["user_wvsuid"] ?>">
-        <label class="chatbar__image-input" for="user_files">
-          <span class="sr-only"> Upload an image</span>
-          <svg width="32" height="33" viewBox="0 0 32 33" fill="#212121" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" clip-rule="evenodd"
-              d="M2.6665 7.16675C2.6665 4.95761 4.45737 3.16675 6.6665 3.16675H25.3332C27.5423 3.16675 29.3332 4.95761 29.3332 7.16675V25.8334C29.3332 28.0426 27.5423 29.8334 25.3332 29.8334H6.6665C4.45736 29.8334 2.6665 28.0426 2.6665 25.8334V7.16675ZM25.444 27.1622C26.0874 27.1093 26.0765 26.2951 25.6405 25.8189L14.0919 13.2066C12.4555 11.4214 9.62072 11.4884 8.0704 13.3487L5.64221 16.2626C5.44253 16.5022 5.33317 16.8042 5.33317 17.1161V25.8334C5.33317 26.5698 5.93012 27.1667 6.6665 27.1667H25.3332C25.3705 27.1667 25.4074 27.1652 25.444 27.1622ZM22.6665 12.5001C24.1393 12.5001 25.3332 11.3062 25.3332 9.83342C25.3332 8.36066 24.1393 7.16675 22.6665 7.16675C21.1937 7.16675 19.9998 8.36066 19.9998 9.83342C19.9998 11.3062 21.1937 12.5001 22.6665 12.5001Z" />
-          </svg>
-          <input type="file" id="user_files">
-        </label>
-        <label class="sr-only" for="user_msg">Write a message</label>
-        <textarea class="chatbar__text-input" id="user_msg" name="user_msg"
-          placeholder="Write a message..." required></textarea>
-        <button class="chatbar__btn" type="submit">
-          <span class="sr-only">Send your message</span>
-          <svg width="32" height="33" viewBox="0 0 32 33" fill="#3E82CD" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M8.39453 4.37438C5.21333 2.90613 1.81561 5.94724 2.92356 9.27113L4.60549 14.2592C4.78832 14.8014 5.29673 15.1666 5.86893 15.1666H17.3332C18.0695 15.1666 18.6665 15.7635 18.6665 16.4999C18.6665 17.2363 18.0695 17.8332 17.3332 17.8332H5.86893C5.29672 17.8332 4.78832 18.1983 4.60549 18.7405L2.92358 23.7287C1.81561 27.0525 5.21334 30.0937 8.39454 28.6254L26.7975 20.1318C29.8959 18.7018 29.8959 14.2981 26.7975 12.8681L8.39453 4.37438Z" />
-          </svg>
-        </button>
+      <form class="chatbar" data-js="chatbar" action="<?= $_SESSION["chat_api"] ?></form>" enctype="multipart/form-data" method="post">
+        <div class="chatbar__uploaded-files chatbar__uploaded-files--hide" data-js="div-uploaded-files">
+        </div>
+        <fieldset class="chatbar__inputs">
+          <input type="hidden" name="chat_type" value="<?= $_SESSION["chat_type"] ?>">
+          <input type="hidden" name="user_name" value="<?= $_SESSION["user_name"] ?>">
+          <input type="hidden" name="user_wvsuid" value="<?= $_SESSION["user_wvsuid"] ?>">
+          <label class="chatbar__image-input" for="user_files">
+            <span class="sr-only"> Upload an image</span>
+            <svg width="32" height="33" viewBox="0 0 32 33" fill="#212121" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M2.6665 7.16675C2.6665 4.95761 4.45737 3.16675 6.6665 3.16675H25.3332C27.5423 3.16675 29.3332 4.95761 29.3332 7.16675V25.8334C29.3332 28.0426 27.5423 29.8334 25.3332 29.8334H6.6665C4.45736 29.8334 2.6665 28.0426 2.6665 25.8334V7.16675ZM25.444 27.1622C26.0874 27.1093 26.0765 26.2951 25.6405 25.8189L14.0919 13.2066C12.4555 11.4214 9.62072 11.4884 8.0704 13.3487L5.64221 16.2626C5.44253 16.5022 5.33317 16.8042 5.33317 17.1161V25.8334C5.33317 26.5698 5.93012 27.1667 6.6665 27.1667H25.3332C25.3705 27.1667 25.4074 27.1652 25.444 27.1622ZM22.6665 12.5001C24.1393 12.5001 25.3332 11.3062 25.3332 9.83342C25.3332 8.36066 24.1393 7.16675 22.6665 7.16675C21.1937 7.16675 19.9998 8.36066 19.9998 9.83342C19.9998 11.3062 21.1937 12.5001 22.6665 12.5001Z" />
+            </svg>
+            <input type="file" data-js="input-user-files" id="user_files" name="user_files" accept="image/*">
+          </label>
+          <label class="sr-only" for="user_msg">Write a message</label>
+          <label class="chatbar__text-input">
+            <textarea id="user_msg" data-js="input-user-msg" name="user_msg"
+            placeholder="Write a message..."></textarea>
+            <button class="emoji-btn" data-js="emoji-button" type="button">
+                <svg width="33" height="33" viewBox="0 0 33 33" fill="#212121" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M16.5 29.8334C24.0939 29.8334 30.25 23.8639 30.25 16.5001C30.25 9.13628 24.0939 3.16675 16.5 3.16675C8.90608 3.16675 2.75 9.13628 2.75 16.5001C2.75 23.8639 8.90608 29.8334 16.5 29.8334ZM11.457 18.6329C11.153 17.9581 10.3424 17.6501 9.64652 17.945C8.95065 18.2398 8.63301 19.0258 8.93705 19.7006C10.2089 22.5232 13.1148 24.5001 16.5 24.5001C19.8851 24.5001 22.7911 22.5232 24.0629 19.7006C24.3669 19.0258 24.0493 18.2398 23.3534 17.945C22.6576 17.6501 21.847 17.9581 21.5429 18.6329C20.693 20.5194 18.7532 21.8334 16.5 21.8334C14.2468 21.8334 12.307 20.5194 11.457 18.6329ZM12.375 12.5001C12.375 13.2365 11.7594 13.8334 11 13.8334C10.2406 13.8334 9.625 13.2365 9.625 12.5001C9.625 11.7637 10.2406 11.1667 11 11.1667C11.7594 11.1667 12.375 11.7637 12.375 12.5001ZM22 13.8334C22.7594 13.8334 23.375 13.2365 23.375 12.5001C23.375 11.7637 22.7594 11.1667 22 11.1667C21.2406 11.1667 20.625 11.7637 20.625 12.5001C20.625 13.2365 21.2406 13.8334 22 13.8334Z"/>
+                </svg>           
+            </button>
+            <menu class="modal modal--emoji" data-js="emoji-modal">
+                <button type="button">&#x2665;&#xfe0f;</button>
+                <button type="button">&#x1F606;</button>
+                <button type="button">&#x1F62E;</button>
+                <button type="button">&#x1F622;</button>
+                <button type="button">&#x1F620;</button>
+                <button type="button">&#x1F44D;</button>
+              </menu>  
+          </label>
+          <button class="chatbar__btn" type="submit">
+            <span class="sr-only">Send your message</span>
+            <svg width="32" height="33" viewBox="0 0 32 33" fill="#3E82CD" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M8.39453 4.37438C5.21333 2.90613 1.81561 5.94724 2.92356 9.27113L4.60549 14.2592C4.78832 14.8014 5.29673 15.1666 5.86893 15.1666H17.3332C18.0695 15.1666 18.6665 15.7635 18.6665 16.4999C18.6665 17.2363 18.0695 17.8332 17.3332 17.8332H5.86893C5.29672 17.8332 4.78832 18.1983 4.60549 18.7405L2.92358 23.7287C1.81561 27.0525 5.21334 30.0937 8.39454 28.6254L26.7975 20.1318C29.8959 18.7018 29.8959 14.2981 26.7975 12.8681L8.39453 4.37438Z" />
+            </svg>
+          </button>
+        </fieldset>
       </form>
     </section>
   </main>

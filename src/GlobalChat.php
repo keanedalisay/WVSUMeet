@@ -9,6 +9,7 @@ class GlobalChat
   public function __construct()
   {
     $conn = mysqli_connect("meet_wvsu_db", "root", "123", "meet.wvsu");
+    $conn->set_charset('utf8mb4');
 
     $gbl_msgs_sql = mysqli_query($conn, "SELECT * FROM gbl_msgs");
     $gbl_msgs = mysqli_fetch_all($gbl_msgs_sql, MYSQLI_ASSOC);
@@ -30,17 +31,24 @@ class GlobalChat
       $msg_cls = $is_crnt_user ? "msg--user" : "msg--others";
 
       echo "
-                <li class='msg $msg_cls'>";
+              <li class='msg $msg_cls'>";
       if ($last_user === $user_name)
         echo "<cite class='msg-athr' data-athr=$user_name></cite>";
       else
         echo "<cite class='msg-athr' data-athr=$user_name>$user_name</cite>";
       echo "
-                <blockquote class='msg-ctnt'>
-                    $msg
-                </blockquote>
-                </li>
-            ";
+              <blockquote class='msg-ctnt'> 
+      ";
+      if (file_exists(dirname(__DIR__)."/public/".$msg)) {
+        $file_path = $msg;
+        echo "<a href='$file_path'><img src='$file_path'></a>";
+      }
+      else 
+        echo $msg;
+      echo 
+      "       </blockquote>
+              </li>
+      ";
 
       $last_user = $user_name;
       mysqli_free_result($user_sql);
@@ -53,6 +61,7 @@ class GlobalChat
   public static function chatButton()
   {
     $conn = mysqli_connect("meet_wvsu_db", "root", "123", "meet.wvsu");
+    $conn->set_charset('utf8mb4');
 
     $last_gbl_msg_sql = mysqli_query($conn, "SELECT * FROM gbl_msgs ORDER BY Time_Sent DESC LIMIT 1");
     $last_gbl_msg = mysqli_fetch_assoc($last_gbl_msg_sql);
@@ -74,8 +83,12 @@ class GlobalChat
             <button class='chat-btn chat-btn--selected' type='submit'>
               <img class='chat-btn__profile' src='../assets/images/global-chat.png' alt=''>
               <div class='chat-btn-details'>
-                <p class='chat-btn-details__name'><b>Global Chat</b></p>
-                <p class='chat-btn-details__last-msg'>$user_last_name: $msg</p>";
+                <p class='chat-btn-details__name'><b>Global Chat</b></p>";
+    if (file_exists(dirname(__DIR__)."/public/".$msg))
+      echo "<p class='chat-btn-details__last-msg'>$user_last_name sent an image</p>";
+    else
+      echo "<p class='chat-btn-details__last-msg'>$user_last_name: $msg</p>";
+
     if ($interval->m > 1)
       echo "  <time class='chat-btn-details__last-sent'><span class='sr-only'>Last sent </span>$interval->m months ago</time>";
     else if ($interval->d > 1)
@@ -97,11 +110,41 @@ class GlobalChat
   public static function store(array $msg)
   {
     $conn = mysqli_connect("meet_wvsu_db", "root", "123", "meet.wvsu");
+    $conn->set_charset('utf8mb4');
 
     $user_wvsuid = $msg["wvsuid"];
     $msg_id = uniqid(more_entropy: true);
     $gbl_msg = $msg["msg"];
     $time_sent = time();
+
+    if (isset($msg["img"])) {
+      $date = date("Y-m-d");
+      $parent_dir = "/assets/";
+    
+      print_r($parent_dir);
+    
+      if (is_dir(dirname(__DIR__) . "/public/" . $parent_dir)) {
+        print_r("\n" . $parent_dir);
+        $date_values = explode("-", $date);
+        $dir_to_store = $parent_dir . "gbl-imgs/" . $date_values[0] . "/" . $date_values[1] . "/" . $date_values[2];
+        $final_file_name = $dir_to_store . "/" . $msg["imgName"];
+
+    
+        if (!is_dir($dir_to_store))
+          mkdir(dirname(__DIR__) . "/public/" . $dir_to_store . "/", 0755, true);
+    
+        print_r("\n" . $parent_dir);
+        file_put_contents(dirname(__DIR__) . "/public/" . $final_file_name, file_get_contents($msg["img"]));
+  
+        $gbl_msg_sql = "INSERT INTO gbl_msgs(Msg, Time_Sent, WVSU_ID, Msg_ID) VALUES (?, ?, ?, ?)";
+        $prep_gbl_msg = mysqli_prepare($conn, $gbl_msg_sql);
+        mysqli_stmt_bind_param($prep_gbl_msg, "siss", $final_file_name, $time_sent, $user_wvsuid, $msg_id);
+        mysqli_stmt_execute($prep_gbl_msg);
+        mysqli_stmt_close($prep_gbl_msg);
+
+        return;
+      }
+    }
 
     $gbl_msg_sql = "INSERT INTO gbl_msgs(Msg, Time_Sent, WVSU_ID, Msg_ID) VALUES (?, ?, ?, ?)";
     $prep_gbl_msg = mysqli_prepare($conn, $gbl_msg_sql);
