@@ -9,6 +9,7 @@ class GlobalChat
   public function __construct()
   {
     $conn = mysqli_connect("meet_wvsu_db", "root", "123", "meet.wvsu");
+    $conn->set_charset('utf8mb4');
 
     $gbl_msgs_sql = mysqli_query($conn, "SELECT * FROM gbl_msgs");
     $gbl_msgs = mysqli_fetch_all($gbl_msgs_sql, MYSQLI_ASSOC);
@@ -60,6 +61,7 @@ class GlobalChat
   public static function chatButton()
   {
     $conn = mysqli_connect("meet_wvsu_db", "root", "123", "meet.wvsu");
+    $conn->set_charset('utf8mb4');
 
     $last_gbl_msg_sql = mysqli_query($conn, "SELECT * FROM gbl_msgs ORDER BY Time_Sent DESC LIMIT 1");
     $last_gbl_msg = mysqli_fetch_assoc($last_gbl_msg_sql);
@@ -108,6 +110,7 @@ class GlobalChat
   public static function store(array $msg)
   {
     $conn = mysqli_connect("meet_wvsu_db", "root", "123", "meet.wvsu");
+    $conn->set_charset('utf8mb4');
 
     $user_wvsuid = $msg["wvsuid"];
     $msg_id = uniqid(more_entropy: true);
