@@ -4,6 +4,33 @@ main {
   flex-flow: row nowrap;
 }
 
+.modal--emoji {
+  width: 100%;
+  max-width: 300px;
+  height: 50px;
+  background: #3E82CD;
+  top: -150%;
+  right: 0;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-evenly;
+  align-items: center;
+  border-radius: 10px;
+}
+.modal--emoji > button {
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border-radius: 25px;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal--emoji > button:hover {
+  background: #ffffff;
+}
+
 .chat-sidebar {
   width: 100%;
   max-width: 370px;
@@ -304,15 +331,48 @@ main {
 }
 
 .chatbar__text-input {
-  padding: 10px 10px;
   margin: 0 10px 0 0;
   width: 75%;
   height: 60px;
+  position: relative;
+  border-radius: 5px;
+}
+
+.chatbar__text-input > textarea {
+  width: 100%;
+  padding: 10px 10px;
   border: 2px solid var(--grey-200);
   border-radius: 5px;
   font-size: 18px;
   resize: none;
 }
+.emoji-btn {
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  transform: translateY(-50%);
+}
+.emoji-btn:hover,
+.emoji-btn:focus {
+  background: #3E82CD;
+}
+.emoji-btn:hover > svg,
+.emoji-btn:focus > svg {
+  fill: #ffffff;
+}
+.emoji-btn > svg {
+  width: 28px;
+  height: 28px;
+  pointer-events: none;
+}
+
 .chatbar__text-input:focus,
 .chatbar__text-input:focus-visible {
   outline: 2px solid #3E82CD;

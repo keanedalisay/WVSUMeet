@@ -134,8 +134,23 @@ if (filter_has_var(INPUT_POST, "chat_type")) {
             <input type="file" data-js="input-user-files" id="user_files" name="user_files" accept="image/*">
           </label>
           <label class="sr-only" for="user_msg">Write a message</label>
-          <textarea class="chatbar__text-input" id="user_msg" name="user_msg"
+          <label class="chatbar__text-input">
+            <textarea id="user_msg" data-js="input-user-msg" name="user_msg"
             placeholder="Write a message..."></textarea>
+            <button class="emoji-btn" data-js="emoji-button" type="button">
+                <svg width="33" height="33" viewBox="0 0 33 33" fill="#212121" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M16.5 29.8334C24.0939 29.8334 30.25 23.8639 30.25 16.5001C30.25 9.13628 24.0939 3.16675 16.5 3.16675C8.90608 3.16675 2.75 9.13628 2.75 16.5001C2.75 23.8639 8.90608 29.8334 16.5 29.8334ZM11.457 18.6329C11.153 17.9581 10.3424 17.6501 9.64652 17.945C8.95065 18.2398 8.63301 19.0258 8.93705 19.7006C10.2089 22.5232 13.1148 24.5001 16.5 24.5001C19.8851 24.5001 22.7911 22.5232 24.0629 19.7006C24.3669 19.0258 24.0493 18.2398 23.3534 17.945C22.6576 17.6501 21.847 17.9581 21.5429 18.6329C20.693 20.5194 18.7532 21.8334 16.5 21.8334C14.2468 21.8334 12.307 20.5194 11.457 18.6329ZM12.375 12.5001C12.375 13.2365 11.7594 13.8334 11 13.8334C10.2406 13.8334 9.625 13.2365 9.625 12.5001C9.625 11.7637 10.2406 11.1667 11 11.1667C11.7594 11.1667 12.375 11.7637 12.375 12.5001ZM22 13.8334C22.7594 13.8334 23.375 13.2365 23.375 12.5001C23.375 11.7637 22.7594 11.1667 22 11.1667C21.2406 11.1667 20.625 11.7637 20.625 12.5001C20.625 13.2365 21.2406 13.8334 22 13.8334Z"/>
+                </svg>           
+            </button>
+            <menu class="modal modal--emoji" data-js="emoji-modal">
+                <button type="button">&#x2665;&#xfe0f;</button>
+                <button type="button">&#x1F606;</button>
+                <button type="button">&#x1F62E;</button>
+                <button type="button">&#x1F622;</button>
+                <button type="button">&#x1F620;</button>
+                <button type="button">&#x1F44D;</button>
+              </menu>  
+          </label>
           <button class="chatbar__btn" type="submit">
             <span class="sr-only">Send your message</span>
             <svg width="32" height="33" viewBox="0 0 32 33" fill="#3E82CD" xmlns="http://www.w3.org/2000/svg">
