@@ -16,5 +16,6 @@ post("/sign-up", "pages/sign-up.php");
 post("/log-in", "pages/log-in.php");
 
 post("/api/chats/global", "pages/chat.php");
+post("/api/chats/private", "pages/chat.php");
 post("/api/user/profile/img", "pages/profile.php");
 post("/api/user/profile/details", "pages/profile.php");
