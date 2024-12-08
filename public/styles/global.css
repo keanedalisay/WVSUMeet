@@ -104,12 +104,16 @@ main {
   min-height: 25px;
 }
 
-.dropdown {
+.dropdown, .modal {
   position: absolute;
   visibility: hidden;
 }
 
 .dropdown--open {
+  visibility: visible;
+}
+
+.modal--open {
   visibility: visible;
 }
 
