@@ -18,40 +18,49 @@ class GlobalChat
 
     $last_user = "";
 
-    foreach ($gbl_msgs as $gbl_msg) {
-      $msg = $gbl_msg["Msg"];
-      $msg_wvsuid = $gbl_msg["WVSU_ID"];
-
-      $user_sql = mysqli_query($conn, "SELECT Name, WVSU_ID FROM users WHERE WVSU_ID = '$msg_wvsuid'");
-      $user = mysqli_fetch_assoc($user_sql);
-
-      $is_crnt_user = $crnt_user_wvsuid === $user["WVSU_ID"];
-
-      $user_name = $is_crnt_user ? "You" : $user["Name"];
-      $msg_cls = $is_crnt_user ? "msg--user" : "msg--others";
-
+    if (empty($gbl_msgs)) {
       echo "
-              <li class='msg $msg_cls'>";
-      if ($last_user === $user_name)
-        echo "<cite class='msg-athr' data-athr=$user_name></cite>";
-      else
-        echo "<cite class='msg-athr' data-athr=$user_name>$user_name</cite>";
-      echo "
-              <blockquote class='msg-ctnt'> 
-      ";
-      if (file_exists(dirname(__DIR__)."/public/".$msg)) {
-        $file_path = $msg;
-        echo "<a href='$file_path'><img src='$file_path'></a>";
+            <li class='msg--empty' style='display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin: 0; padding: 20px; width: 100%; height: 100%;'>
+                <h2 style='font-size: 24px; font-weight: bold; color: #4d94ff; margin: 0;'>Start a Conversation</h2>
+                <p style='font-size: 14px; color: #555; margin: 5px 0;'>Don't be a Stranger!</p>
+                <p style='font-size: 14px; color: #555;'>Start the conversation by sending a message or emoji</p>
+            </li>";
+    } else {
+      foreach ($gbl_msgs as $gbl_msg) {
+        $msg = $gbl_msg["Msg"];
+        $msg_wvsuid = $gbl_msg["WVSU_ID"];
+  
+        $user_sql = mysqli_query($conn, "SELECT Name, WVSU_ID FROM users WHERE WVSU_ID = '$msg_wvsuid'");
+        $user = mysqli_fetch_assoc($user_sql);
+  
+        $is_crnt_user = $crnt_user_wvsuid === $user["WVSU_ID"];
+  
+        $user_name = $is_crnt_user ? "You" : $user["Name"];
+        $msg_cls = $is_crnt_user ? "msg--user" : "msg--others";
+  
+        echo "
+                <li class='msg $msg_cls'>";
+        if ($last_user === $user_name)
+          echo "<cite class='msg-athr' data-athr=$user_name></cite>";
+        else
+          echo "<cite class='msg-athr' data-athr=$user_name>$user_name</cite>";
+        echo "
+                <blockquote class='msg-ctnt'> 
+        ";
+        if (file_exists(dirname(__DIR__)."/public/".$msg)) {
+          $file_path = $msg;
+          echo "<a href='$file_path'><img src='$file_path'></a>";
+        }
+        else 
+          echo $msg;
+        echo 
+        "       </blockquote>
+                </li>
+        ";
+  
+        $last_user = $user_name;
+        mysqli_free_result($user_sql);
       }
-      else 
-        echo $msg;
-      echo 
-      "       </blockquote>
-              </li>
-      ";
-
-      $last_user = $user_name;
-      mysqli_free_result($user_sql);
     }
 
     mysqli_free_result($gbl_msgs_sql);
@@ -66,16 +75,19 @@ class GlobalChat
     $last_gbl_msg_sql = mysqli_query($conn, "SELECT * FROM gbl_msgs ORDER BY Time_Sent DESC LIMIT 1");
     $last_gbl_msg = mysqli_fetch_assoc($last_gbl_msg_sql);
 
-    $msg = $last_gbl_msg["Msg"];
-    $msg_wvsuid = $last_gbl_msg["WVSU_ID"];
-
-    $user_sql = mysqli_query($conn, "SELECT Name, WVSU_ID FROM users WHERE WVSU_ID = '$msg_wvsuid'");
-    $user = explode(" ", mysqli_fetch_assoc($user_sql)["Name"]);
-    $user_last_name = end($user);
-
     $date_now = new DateTime();
-    $date_last_msg = new DateTime(date("F j, Y, G:i:s", timestamp: $last_gbl_msg["Time_Sent"]));
-    $interval = $date_now->diff($date_last_msg, true);
+
+    if (!empty($last_gbl_msg)) {
+      $msg = $last_gbl_msg["Msg"];
+      $msg_wvsuid = $last_gbl_msg["WVSU_ID"];
+
+      $user_sql = mysqli_query($conn, "SELECT Name, WVSU_ID FROM users WHERE WVSU_ID = '$msg_wvsuid'");
+      $user = explode(" ", mysqli_fetch_assoc($user_sql)["Name"]);
+      $user_last_name = end($user);
+
+      $date_last_msg = new DateTime(date("F j, Y, G:i:s", timestamp: $last_gbl_msg["Time_Sent"]));
+      $interval = $date_now->diff($date_last_msg, true);
+    }
 
     echo "
         <form class='chat-btn-form' action='/api/chats/global' method='post'>
@@ -84,21 +96,25 @@ class GlobalChat
               <img class='chat-btn__profile' src='../assets/images/global-chat.png' alt=''>
               <div class='chat-btn-details'>
                 <p class='chat-btn-details__name'><b>Global Chat</b></p>";
-    if (file_exists(dirname(__DIR__)."/public/".$msg))
+    if (!empty($last_gbl_msg) && file_exists(dirname(__DIR__)."/public/".$msg))
       echo "<p class='chat-btn-details__last-msg'>$user_last_name sent an image</p>";
-    else
+    else if (!empty($last_gbl_msg))
       echo "<p class='chat-btn-details__last-msg'>$user_last_name: $msg</p>";
-
-    if ($interval->m > 1)
-      echo "  <time class='chat-btn-details__last-sent'><span class='sr-only'>Last sent </span>$interval->m months ago</time>";
-    else if ($interval->d > 1)
-      echo "  <time class='chat-btn-details__last-sent'><span class='sr-only'>Last sent </span>$interval->d days ago</time>";
-    else if ($interval->h > 1)
-      echo "  <time class='chat-btn-details__last-sent'><span class='sr-only'>Last sent </span>$interval->h hours ago</time>";
-    else if ($interval->m > 1)
-      echo "  <time class='chat-btn-details__last-sent'><span class='sr-only'>Last sent </span>$interval->i mins ago</time>";
     else 
-      echo "  <time class='chat-btn-details__last-sent'><span class='sr-only'>Last sent </span>$interval->i min ago</time>";
+      echo "<p class='chat-btn-details__last-msg'>No messages yet</p>";
+
+    if (!empty($last_gbl_msg)) {
+      if ($interval->m > 1)
+        echo "  <time class='chat-btn-details__last-sent'><span class='sr-only'>Last sent </span>$interval->m months ago</time>";
+      else if ($interval->d > 1)
+        echo "  <time class='chat-btn-details__last-sent'><span class='sr-only'>Last sent </span>$interval->d days ago</time>";
+      else if ($interval->h > 1)
+        echo "  <time class='chat-btn-details__last-sent'><span class='sr-only'>Last sent </span>$interval->h hours ago</time>";
+      else if ($interval->m > 1)
+        echo "  <time class='chat-btn-details__last-sent'><span class='sr-only'>Last sent </span>$interval->i mins ago</time>";
+      else 
+        echo "  <time class='chat-btn-details__last-sent'><span class='sr-only'>Last sent </span>$interval->i min ago</time>";
+    }
     // <span class="chat-btn-details__unread-msgs">20<span class="sr-only">new messages</span>
     echo "
               </div>
