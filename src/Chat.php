@@ -46,13 +46,10 @@ class Chat implements MessageComponentInterface
       PrivateChat::storeMessage($jsonMessage);
 
       echo "Receiver resourceId: " . $jsonMessage["receiver_id"] . "\n";
-
-
-      foreach ($this->clients as $client) {
-          if ($client->resourceId === $jsonMessage["receiver_id"]) {
-              echo "Sending to client with resourceId: " . $client->resourceId . "\n";
-              $client->send($msg);
-              break;
+      foreach ($this->clients as $client)
+      {
+          if($from !== $client) {
+            $client->send($msg);
           }
       }
     }

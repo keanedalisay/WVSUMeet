@@ -14,6 +14,8 @@ const chatbar = document.querySelector("[data-js=chatbar]");
 chatbox.scrollTo(0, chatbox.scrollHeight);
 
 const messages = [];
+let senderUser = document.querySelector("input[name=receiver_id]").getAttribute("value");
+let receiverUser = document.querySelector("input[name=user_wvsuid]").getAttribute("value");
 
 chatbar.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -27,10 +29,13 @@ chatbar.addEventListener("submit", (e) => {
   })
   const jsonMessage = `{ 
     "chat_type": "${message.get('chat_type')}",
+    "sender_name": "${message.get('user_name')}",
     "sender_id": "${message.get("user_wvsuid")}",
     "receiver_id": "${message.get("receiver_id")}",
     "msg": "${message.get("user_msg")}"
   }`;
+  receiverUser = message.get("user_wvsuid");
+
   console.log(jsonMessage)
 
   chatbox.insertAdjacentHTML(
@@ -53,11 +58,7 @@ chatbar.addEventListener("submit", (e) => {
 ws.onmessage = (e) => {
   const jsonMessage = JSON.parse(e.data);
   console.log('Received private message:', jsonMessage);
-
-  if (
-    jsonMessage.sender_id === document.querySelector("[name='user_wvsuid']").value ||
-    jsonMessage.receiver_id === document.querySelector("[name='receiver_id']").value
-  ) {
+  if (jsonMessage.receiver_id === receiverUser && jsonMessage.sender_id == senderUser) {
     chatbox.insertAdjacentHTML(
       "beforeend",
       `<li class='msg msg--others'>
