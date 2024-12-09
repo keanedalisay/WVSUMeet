@@ -80,7 +80,7 @@ class GlobalChat
     echo "
         <form class='chat-btn-form' action='/api/chats/global' method='post'>
             <input type='hidden' name='chat_type' value='global'>
-            <button class='chat-btn chat-btn--selected' type='submit'>
+            <button class='chat-btn' type='submit'>
               <img class='chat-btn__profile' src='../assets/images/global-chat.png' alt=''>
               <div class='chat-btn-details'>
                 <p class='chat-btn-details__name'><b>Global Chat</b></p>";
