@@ -23,6 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && filter_has_var(INPUT_POST, "chat_ty
     $_SESSION["chat_api"] = "/api/chats/private";
     $_SESSION["chat_partner_id"] = htmlspecialchars($_POST["chat_partner"]);
     $_SESSION["chat_partner_name"] = htmlspecialchars($_POST["chat_partner_name"]);
+    $_SESSION["chat_partner_profile"] = htmlspecialchars($_POST["chat_partner_profile"]);
   }
 
   header("Location: /chat");
@@ -110,7 +111,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && filter_has_var(INPUT_POST, "chat_ty
     </aside>
     <section class="chatbox">
       <div class="chatbox-details">
+      <?php if ($_SESSION["chat_type"] === "global"): ?>
         <img class="chatbox-details__profile" src="../assets/images/global-chat.png" alt="">
+      <?php elseif (empty($_SESSION["chat_partner_profile"])): ?>
+        <div class="chatbox-details__profile">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path
+              d="M19 7.001c0 3.865-3.134 7-7 7s-7-3.135-7-7c0-3.867 3.134-7.001 7-7.001s7 3.134 7 7.001zm-1.598 7.18c-1.506 1.137-3.374 1.82-5.402 1.82-2.03 0-3.899-.685-5.407-1.822-4.072 1.793-6.593 7.376-6.593 9.821h24c0-2.423-2.6-8.006-6.598-9.819z" />
+          </svg>
+        </div>
+      <?php else: ?>
+        <img class="chatbox-details__profile" src="<?= $_SESSION["chat_partner_profile"] ?>" alt="">
+      <?php endif; ?>
         <h2 class="chatbox-details__name">
         <?php
           echo ($_SESSION["chat_type"] === "private") ? $_SESSION["chat_partner_name"] : "Global Chat";

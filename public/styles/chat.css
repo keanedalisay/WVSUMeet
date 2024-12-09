@@ -106,7 +106,18 @@ main {
   flex-flow: column nowrap;
 }
 .chat-btn__profile {
+  min-width: 50px;
   height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--grey-100);
+  border-radius: 10px;
+}
+.chat-btn__profile > svg {
+  width: 25px;
+  height: 25px;
+  fill: #8c8c8c;
 }
 .chat-btn-details__name {
   width: 100%;
@@ -161,9 +172,22 @@ main {
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
 }
+
 .chatbox-details__profile {
-  max-height: 40px;
+  min-width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--grey-100);
+  border-radius: 10px;
 }
+.chatbox-details__profile > svg {
+  width: 20px;
+  height: 20px;
+  fill: #8c8c8c;
+}
+
 .chatbox-details__name {
   margin: 0 0 0 10px;
   font-size: 20px;

@@ -86,10 +86,11 @@ class PrivateChat
         );
 
         $last_msg = mysqli_fetch_assoc($last_msg_sql);
-        $chat_partner_sql = mysqli_query($conn, "SELECT Name FROM users WHERE WVSU_ID = '$chatPartner'");
+        $chat_partner_sql = mysqli_query($conn, "SELECT Name, Profile FROM users WHERE WVSU_ID = '$chatPartner'");
         $chat_partner = mysqli_fetch_assoc($chat_partner_sql);
 
         $chat_partner_name = htmlspecialchars($chat_partner["Name"]);
+        $chat_partner_profile = $chat_partner["Profile"];
 
         $msg = $last_msg ? $last_msg["Msg"] : "No messages yet";
         if ($last_msg && $last_msg["Sender_WVSU_ID"] == $currentUser) {
@@ -120,9 +121,13 @@ class PrivateChat
                 <input type='hidden' name='chat_type' value= 'private'>
                 <input type='hidden' name='chat_partner' value='$chatPartner'>
                 <input type='hidden' name='chat_partner_name' value='$chat_partner_name'>
-                <button class='chat-btn' type='submit'>
-                    <img class='chat-btn__profile' src='../assets/images/private-chat.png' alt=''>
-                    <div class='chat-btn-details'>
+                <input type='hidden' name='chat_partner_profile' value='$chat_partner_profile'>
+                <button class='chat-btn' type='submit'>";
+        if (empty($chat_partner_profile))
+            echo "<div class='chat-btn__profile'><svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path d='M19 7.001c0 3.865-3.134 7-7 7s-7-3.135-7-7c0-3.867 3.134-7.001 7-7.001s7 3.134 7 7.001zm-1.598 7.18c-1.506 1.137-3.374 1.82-5.402 1.82-2.03 0-3.899-.685-5.407-1.822-4.072 1.793-6.593 7.376-6.593 9.821h24c0-2.423-2.6-8.006-6.598-9.819z' /></svg></div>";
+        else
+            echo "  <img class='chat-btn__profile' src='$chat_partner_profile' alt=''>";
+        echo "      <div class='chat-btn-details'>
                         <p class='chat-btn-details__name'><b> $chat_partner_name</b></p>
                         <p class='chat-btn-details__last-msg'>$msg</p>";
         if ($time_info) {
