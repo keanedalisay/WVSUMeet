@@ -103,7 +103,7 @@ class PrivateChat
 
         $msg = $last_msg ? $last_msg["Msg"] : "No messages yet";
         if ($last_msg && $last_msg["Sender_WVSU_ID"] == $currentUser) {
-            $msg = "you: " . $msg;
+            $msg = "You: " . $msg;
         }
         $time_info = "";
 
