@@ -31,7 +31,7 @@ chatbar.addEventListener('submit', async (e) => {
 
   const image = message.get("user_files");
 
-  if (Object.keys(image).length > 0 && image.constructor === File) {
+  if (image.name.length > 0 && image.constructor === File) {
     const image = message.get("user_files");
     console.log("test");
     const imageUrl = URL.createObjectURL(image);
@@ -124,21 +124,6 @@ divUploadedFiles.addEventListener("click", (e) => {
     chatbar.style.height = "15%"; 
   }
 });
-
-const emojiBtn = document.querySelector("[data-js=emoji-button]");
-const emojiModal = document.querySelector("[data-js=emoji-modal]");
-const inputUserMsg = document.querySelector("[data-js=input-user-msg]");
-
-emojiBtn.addEventListener("click", (e) => {
-  emojiModal.classList.toggle("modal--open");
-})
-
-emojiModal.addEventListener("click", (e) => {
-  if (e.target.type === "button") {
-    inputUserMsg.value += e.target.textContent;
-  }
-})
-
 
 ws.onmessage = async (e) => {
   async function dataUrlToFile(dataUrl, fileName) {
