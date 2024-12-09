@@ -35,16 +35,24 @@ class PrivateChat
         $private_msgs = mysqli_fetch_all($private_msgs_sql, MYSQLI_ASSOC);
         $last_user = "";
 
-        foreach ($private_msgs as $msg) {
-            $msg_content = $msg["Msg"];
-            $msg_sender_id = $msg["Sender_WVSU_ID"];
+        if (empty($private_msgs)) {
+            echo "
+                <li class='msg--empty' style='display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin: 0; padding: 20px; width: 100%; height: 100%;'>
+                    <h2 style='font-size: 24px; font-weight: bold; color: #4d94ff; margin: 0;'>Start a Conversation</h2>
+                    <p style='font-size: 14px; color: #555; margin: 5px 0;'>Don't be a Stranger!</p>
+                    <p style='font-size: 14px; color: #555;'>Start the conversation by sending a message or emoji</p>
+                </li>";
+        } else {
+            foreach ($private_msgs as $msg) {
+                $msg_content = $msg["Msg"];
+                $msg_sender_id = $msg["Sender_WVSU_ID"];
 
-            $user_sql = mysqli_query($this->conn, "SELECT Name FROM users WHERE WVSU_ID = '$msg_sender_id'");
-            $user = mysqli_fetch_assoc($user_sql);
+                $user_sql = mysqli_query($this->conn, "SELECT Name FROM users WHERE WVSU_ID = '$msg_sender_id'");
+                $user = mysqli_fetch_assoc($user_sql);
 
-            $is_crnt_user = $crnt_user_wvsuid === $msg_sender_id;
-            $user_name = $is_crnt_user ? "You" : htmlspecialchars($user["Name"]);
-            $msg_cls = $is_crnt_user ? "msg--user" : "msg--others";
+                $is_crnt_user = $crnt_user_wvsuid === $msg_sender_id;
+                $user_name = $is_crnt_user ? "You" : htmlspecialchars($user["Name"]);
+                $msg_cls = $is_crnt_user ? "msg--user" : "msg--others";
 
             echo "
                 <li class='msg $msg_cls'>";
@@ -66,11 +74,11 @@ class PrivateChat
             echo "</blockquote>
                 </li>";
 
-            $last_user = $user_name;
-            mysqli_free_result($user_sql);
-        }
-
-        mysqli_free_result($private_msgs_sql);
+                $last_user = $user_name;
+                mysqli_free_result($user_sql);
+                }
+            }
+            mysqli_free_result($private_msgs_sql);
     }
 
     public static function chatButton($currentUser, $chatPartner)
@@ -94,6 +102,9 @@ class PrivateChat
         $chat_partner_profile = $chat_partner["Profile"];
 
         $msg = $last_msg ? $last_msg["Msg"] : "No messages yet";
+        if ($last_msg && $last_msg["Sender_WVSU_ID"] == $currentUser) {
+            $msg = "you: " . $msg;
+        }
         $time_info = "";
 
         if ($last_msg) {
