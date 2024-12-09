@@ -1,5 +1,6 @@
 <?php
 use WvsuMeet\GlobalChat;
+use WvsuMeet\PrivateChat;
 
 if (empty($_SESSION["has_logged_in"])) {
   header("Location: /log-in");
@@ -11,13 +12,22 @@ if (empty($_SESSION["chat_type"])) {
   $_SESSION["chat_api"] = "/api/chats/global";
 }
 
-if (filter_has_var(INPUT_POST, "chat_type")) {
-  if ($_SERVER["REQUEST_URI"] === "/api/chats/global") {
-    $_SESSION["chat_type"] = $_POST["chat_type"];
-    $_SESSION["chat_api"] = $_SERVER["REQUEST_URI"];
-    header("Location: /chat");
-    exit;
+if ($_SERVER["REQUEST_METHOD"] === "POST" && filter_has_var(INPUT_POST, "chat_type")) {
+  $chatType = $_POST["chat_type"];
+
+  if ($chatType === "global") {
+    $_SESSION["chat_type"] = "global";
+    $_SESSION["chat_api"] = "/api/chats/global";
+  } elseif ($chatType === "private" && isset($_POST["chat_partner"]) && isset($_POST["chat_partner_name"])) {
+    $_SESSION["chat_type"] = "private";
+    $_SESSION["chat_api"] = "/api/chats/private";
+    $_SESSION["chat_partner_id"] = htmlspecialchars($_POST["chat_partner"]);
+    $_SESSION["chat_partner_name"] = htmlspecialchars($_POST["chat_partner_name"]);
+    $_SESSION["chat_partner_profile"] = htmlspecialchars($_POST["chat_partner_profile"]);
   }
+
+  header("Location: /chat");
+  exit;
 }
 ?>
 
@@ -34,6 +44,8 @@ if (filter_has_var(INPUT_POST, "chat_type")) {
   <script src="../scripts/global.js" type="module"></script>
   <?php if (empty($_SESSION["chat_type"]) || $_SESSION["chat_type"] === "global"): ?>
     <script src="../scripts/global-chat.js" type="module"></script>
+  <?php elseif ($_SESSION["chat_type"] === "private"):  ?>
+    <script src="../scripts/private-chat.js" type="module"></script>
   <?php endif; ?>
 </head>
 
@@ -81,39 +93,50 @@ if (filter_has_var(INPUT_POST, "chat_type")) {
       </section>
       <section>
         <h2>ALL CHATS</h2>
-        <form class="chat-btn-form">
-          <button class="chat-btn">
-            <img class="chat-btn__profile" src="../assets/images/global-chat.png" alt="">
-            <div class="chat-btn-details">
-              <p class="chat-btn-details__name"><b>Albert</b></p>
-              <p class="chat-btn-details__last-msg">Hi</p>
-              <time class="chat-btn-details__last-sent"><span class="sr-only">Last sent at</span>09:21</time>
-            </div>
-          </button>
-        </form>
-        <form class="chat-btn-form">
-          <button class="chat-btn">
-            <img class="chat-btn__profile" src="../assets/images/global-chat.png" alt="">
-            <div class="chat-btn-details">
-              <p class="chat-btn-details__name"><b>Prince Malatuba</b></p>
-              <p class="chat-btn-details__last-msg">What"s the assignment today?</p>
-              <time class="chat-btn-details__last-sent"><span class="sr-only">Last sent at</span>09:21</time>
-              <span class="chat-btn-details__unread-msgs">1</span>
-            </div>
-          </button>
-        </form>
+        <?php
+          $conn = mysqli_connect("meet_wvsu_db", "root", "123", "meet.wvsu");
+
+          $current_user_wvsuid = htmlspecialchars($_SESSION["user_wvsuid"]);
+          $users_sql = mysqli_query($conn, "SELECT WVSU_ID, Name FROM users WHERE WVSU_ID != '$current_user_wvsuid'");
+
+          while ($user = mysqli_fetch_assoc($users_sql)) {
+            $chat_partner_wvsuid = $user["WVSU_ID"];
+            PrivateChat::chatButton($current_user_wvsuid, $chat_partner_wvsuid);
+          }
+    
+          mysqli_free_result($users_sql);
+          mysqli_close($conn);
+        ?>
       </section>
     </aside>
     <section class="chatbox">
       <div class="chatbox-details">
+      <?php if ($_SESSION["chat_type"] === "global"): ?>
         <img class="chatbox-details__profile" src="../assets/images/global-chat.png" alt="">
-        <h2 class="chatbox-details__name">Global Chat</h2>
+      <?php elseif (empty($_SESSION["chat_partner_profile"])): ?>
+        <div class="chatbox-details__profile">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path
+              d="M19 7.001c0 3.865-3.134 7-7 7s-7-3.135-7-7c0-3.867 3.134-7.001 7-7.001s7 3.134 7 7.001zm-1.598 7.18c-1.506 1.137-3.374 1.82-5.402 1.82-2.03 0-3.899-.685-5.407-1.822-4.072 1.793-6.593 7.376-6.593 9.821h24c0-2.423-2.6-8.006-6.598-9.819z" />
+          </svg>
+        </div>
+      <?php else: ?>
+        <img class="chatbox-details__profile" src="<?= $_SESSION["chat_partner_profile"] ?>" alt="">
+      <?php endif; ?>
+        <h2 class="chatbox-details__name">
+        <?php
+          echo ($_SESSION["chat_type"] === "private") ? $_SESSION["chat_partner_name"] : "Global Chat";
+        ?>
+        </h2>
       </div>
       <div class="wrap wrap--msgs" data-js="wrap-msgs">
         <ol class="msgs" data-js="chatbox" tabindex="0" aria-label="Message box">
           <?php
           if ($_SESSION["chat_type"] === "global") {
             new GlobalChat();
+          } elseif ($_SESSION["chat_type"] === "private") {
+            $privateChat = new PrivateChat();
+            $privateChat->displayMessages($_SESSION["user_wvsuid"], $_SESSION["chat_partner_id"]);
           }
           ?>
         </ol>
@@ -125,7 +148,10 @@ if (filter_has_var(INPUT_POST, "chat_type")) {
           <input type="hidden" name="chat_type" value="<?= $_SESSION["chat_type"] ?>">
           <input type="hidden" name="user_name" value="<?= $_SESSION["user_name"] ?>">
           <input type="hidden" name="user_wvsuid" value="<?= $_SESSION["user_wvsuid"] ?>">
-          <label class="chatbar__image-input" for="user_files">
+          <?php if ($_SESSION["chat_type"] == "private"): ?>
+          <input type="hidden" name="receiver_id" value="<?= htmlspecialchars($_SESSION["chat_partner_id"]) ?>">
+        <?php endif; ?>
+        <label class="chatbar__image-input" for="user_files">
             <span class="sr-only"> Upload an image</span>
             <svg width="32" height="33" viewBox="0 0 32 33" fill="#212121" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd"

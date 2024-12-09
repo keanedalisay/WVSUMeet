@@ -1,12 +1,12 @@
 const ws = new WebSocket("ws://localhost:8080");
 
 ws.onopen = (e) => {
-  console.log("Connection open!");
-}
+  console.log("Private chat connection open!");
+};
 
 ws.onerror = (e) => {
-  console.log("error!");
-}
+  console.error("WebSocket error:", e);
+};
 
 const chatbox = document.querySelector("[data-js=chatbox]");
 const chatbar = document.querySelector("[data-js=chatbar]");
@@ -14,23 +14,30 @@ const chatbar = document.querySelector("[data-js=chatbar]");
 chatbox.scrollTo(0, chatbox.scrollHeight);
 
 const messages = [];
+let senderUser = document.querySelector("input[name=receiver_id]").getAttribute("value");
+let receiverUser = document.querySelector("input[name=user_wvsuid]").getAttribute("value");
 
-chatbar.addEventListener('submit', async (e) => {
+chatbar.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const message = new FormData(e.target);
-
-  const lastMsg = document.querySelector(".msg:last-of-type");
-
+  console.log({
+    chat_type: message.get('chat_type'),
+    sender_id: message.get("user_wvsuid"),
+    receiver_id: message.get("receiver_id"),
+    msg: message.get("user_msg")
+  })
   const jsonMessage = JSON.parse(`{ 
-    "name": "${message.get('user_name')}",
-    "wvsuid":  "${message.get('user_wvsuid')}",
     "chat_type": "${message.get('chat_type')}",
-    "msg": "${message.get('user_msg')}"
+    "sender_name": "${message.get('user_name')}",
+    "sender_id": "${message.get("user_wvsuid")}",
+    "receiver_id": "${message.get("receiver_id")}",
+    "msg": "${message.get("user_msg")}"
   }`);
+  receiverUser = message.get("user_wvsuid");
 
   const image = message.get("user_files");
-
+  
   if (image.name.length > 0 && image.constructor === File) {
     const image = message.get("user_files");
     console.log("test");
@@ -52,11 +59,7 @@ chatbar.addEventListener('submit', async (e) => {
       'beforeend',
       `<li class='msg msg--user'>
         <cite class='msg-athr'>${ 
-          messages.length < 1 && !lastMsg ? "You"
-          : messages.length < 1 && lastMsg.classList.contains('msg--others') ? "You" 
-          : messages.length < 1 && lastMsg.classList.contains('msg--user') ? "" 
-          : messages[messages.length - 1].name === message.get("user_name") ? "" 
-          : "You"
+          messages.length < 1 || messages[messages.length - 1].sender_id !== message.get("user_wvsuid") ? "You" : ""
             }</cite>
         <blockquote class='msg-ctnt'>
         <a href='${imageUrl}'><img src='${imageUrl}' alt='${image.name}'></a>
@@ -65,19 +68,11 @@ chatbar.addEventListener('submit', async (e) => {
     );
   } else {
     chatbox.insertAdjacentHTML(
-      'beforeend',
+      "beforeend",
       `<li class='msg msg--user'>
-        <cite class='msg-athr'>${ 
-          messages.length < 1 && !lastMsg ? "You"
-          : messages.length < 1 && lastMsg.classList.contains('msg--others') ? "You" 
-          : messages.length < 1 && lastMsg.classList.contains('msg--user') ? "" 
-          : messages[messages.length - 1].name === message.get("user_name") ? "" 
-          : "You"
-            }</cite>
-        <blockquote class='msg-ctnt'>
-        ${message.get('user_msg')}
-        </blockquote>
-    </li>`
+        <cite class='msg-athr'>${messages.length < 1 || messages[messages.length - 1].sender_id !== message.get("user_wvsuid") ? "You" : ""}</cite>
+        <blockquote class='msg-ctnt'>${message.get("user_msg")}</blockquote>
+      </li>`
     );
   }
 
@@ -85,7 +80,7 @@ chatbar.addEventListener('submit', async (e) => {
 
   chatbox.scrollTo(0, chatbox.scrollHeight);
   chatbar.reset();
-  
+
   ws.send(JSON.stringify(jsonMessage));
 });
 
@@ -133,47 +128,34 @@ ws.onmessage = async (e) => {
   }
 
   const jsonMessage = JSON.parse(e.data);
+  console.log('Received private message:', jsonMessage);
 
-  const lastMsg = document.querySelector('.msg:last-of-type');
-
-  console.log(jsonMessage);
-
-  if (jsonMessage.img) {
-    const img = await dataUrlToFile(jsonMessage.img, jsonMessage.imgName);
-    chatbox.insertAdjacentHTML(
-      'beforeend',
-      `<li class='msg msg--others'>
-            <cite class='msg-athr'>${
-              messages.length < 1 && !lastMsg ? jsonMessage.name
-              : messages.length < 1 && lastMsg.classList.contains('msg--user') ? jsonMessage.name
-              : messages.length < 1 && lastMsg.classList.contains('msg--others') ? ""
-              : messages[messages.length - 1].name === jsonMessage.name ? "" 
-              : jsonMessage.name
-            }</cite>
-            <blockquote class='msg-ctnt'>
-            <a href='${URL.createObjectURL(img)}'><img src='${URL.createObjectURL(img)}' alt='${jsonMessage.imgName}'></a>
-            </blockquote>
+  if (jsonMessage.receiver_id === receiverUser && jsonMessage.sender_id == senderUser) {
+    if (jsonMessage.img) {
+      const img = await dataUrlToFile(jsonMessage.img, jsonMessage.imgName);
+      chatbox.insertAdjacentHTML(
+        'beforeend',
+        `<li class='msg msg--others'>
+              <cite class='msg-athr'>${
+                messages.length < 1 || messages[messages.length - 1].sender_id !== jsonMessage.sender_id ? jsonMessage.sender_name : ""
+              }</cite>
+              <blockquote class='msg-ctnt'>
+              <a href='${URL.createObjectURL(img)}'><img src='${URL.createObjectURL(img)}' alt='${jsonMessage.imgName}'></a>
+              </blockquote>
+          </li>`
+      );
+    } else {
+      chatbox.insertAdjacentHTML(
+        "beforeend",
+        `<li class='msg msg--others'>
+          <cite class='msg-athr'>${messages.length < 1 || messages[messages.length - 1].sender_id !== jsonMessage.sender_id ? jsonMessage.sender_name : ""}</cite>
+          <blockquote class='msg-ctnt'>${jsonMessage.msg}</blockquote>
         </li>`
-    );
-  } else {
-    chatbox.insertAdjacentHTML(
-      'beforeend',
-      `<li class='msg msg--others'>
-            <cite class='msg-athr'>${
-              messages.length < 1 && !lastMsg ? jsonMessage.name
-              : messages.length < 1 && lastMsg.classList.contains('msg--user') ? jsonMessage.name
-              : messages.length < 1 && lastMsg.classList.contains('msg--others') ? ""
-              : messages[messages.length - 1].name === jsonMessage.name ? "" 
-              : jsonMessage.name
-            }</cite>
-            <blockquote class='msg-ctnt'>
-            ${jsonMessage.msg}
-            </blockquote>
-        </li>`
-    );
+      );
+    }
+    
+
+    messages.push(jsonMessage);
+    chatbox.scrollTo(0, chatbox.scrollHeight);
   }
-
-  messages.push(jsonMessage);
-
-  chatbox.scrollTo(0, chatbox.scrollHeight);
 };
