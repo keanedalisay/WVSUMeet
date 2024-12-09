@@ -54,9 +54,16 @@ class PrivateChat
                 echo "<cite class='msg-athr' data-athr=$user_name>$user_name</cite>";
             }
             echo "
-                <blockquote class='msg-ctnt'>
-                    $msg_content
-                </blockquote>
+                <blockquote class='msg-ctnt'>";
+
+            if (file_exists(dirname(__DIR__)."/public/".$msg_content)) {
+                $file_path = $msg_content;
+                echo "<a href='$file_path'><img src='$file_path'></a>";
+                }
+                else 
+                echo $msg_content;
+
+            echo "</blockquote>
                 </li>";
 
             $last_user = $user_name;
@@ -119,8 +126,11 @@ class PrivateChat
         else
             echo "  <img class='chat-btn__profile' src='$chat_partner_profile' alt=''>";
         echo "      <div class='chat-btn-details'>
-                        <p class='chat-btn-details__name'><b> $chat_partner_name</b></p>
-                        <p class='chat-btn-details__last-msg'>$msg</p>";
+                        <p class='chat-btn-details__name'><b> $chat_partner_name</b></p>";
+        if (file_exists(dirname(__DIR__)."/public/".$msg))
+            echo "<p class='chat-btn-details__last-msg'>Sent an image</p>";
+        else
+            echo "<p class='chat-btn-details__last-msg'>$msg</p>";
         if ($time_info) {
             echo "<time class='chat-btn-details__last-sent'><span class='sr-only'>Last sent </span>$time_info</time>";
         }
@@ -146,6 +156,37 @@ class PrivateChat
         $msg_id = uniqid("", true);
         $message = $msg["msg"];
         $time_sent = time();
+
+        print_r($msg);
+
+        if (isset($msg["img"])) {
+            $date = date("Y-m-d");
+            $parent_dir = "/assets/";
+          
+            print_r($parent_dir);
+          
+            if (is_dir(dirname(__DIR__) . "/public/" . $parent_dir)) {
+              print_r("\n" . $parent_dir);
+              $date_values = explode("-", $date);
+              $dir_to_store = $parent_dir . "private-imgs/" . $date_values[0] . "/" . $date_values[1] . "/" . $date_values[2];
+              $final_file_name = $dir_to_store . "/" . $msg["imgName"];
+      
+          
+              if (!is_dir($dir_to_store))
+                mkdir(dirname(__DIR__) . "/public/" . $dir_to_store . "/", 0755, true);
+          
+              print_r("\n" . $parent_dir);
+              file_put_contents(dirname(__DIR__) . "/public/" . $final_file_name, file_get_contents($msg["img"]));
+        
+              $private_msg_sql = "INSERT INTO private_msgs (Msg_ID, Sender_WVSU_ID, Receiver_WVSU_ID, Msg, Time_Sent) VALUES (?, ?, ?, ?, ?)";
+              $prep_private_msg = mysqli_prepare($conn, $private_msg_sql);
+              mysqli_stmt_bind_param($prep_private_msg, "ssssi", $msg_id, $sender_id, $receiver_id, $final_file_name, $time_sent);
+              mysqli_stmt_execute($prep_private_msg);
+              mysqli_stmt_close($prep_private_msg);
+      
+              return;
+            }
+        }
 
         $private_msg_sql = "INSERT INTO private_msgs (Msg_ID, Sender_WVSU_ID, Receiver_WVSU_ID, Msg, Time_Sent) VALUES (?, ?, ?, ?, ?)";
         $prep_private_msg = mysqli_prepare($conn, $private_msg_sql);
