@@ -11,6 +11,7 @@ class PrivateChat
     public function __construct()
     {
         $this->conn = mysqli_connect("meet_wvsu_db", "root", "123", "meet.wvsu");
+        $this->conn->set_charset('utf8mb4');
     }
 
     public function __destruct()
@@ -68,6 +69,7 @@ class PrivateChat
     public static function chatButton($currentUser, $chatPartner)
     {
         $conn = mysqli_connect("meet_wvsu_db", "root", "123", "meet.wvsu");
+        $conn->set_charset('utf8mb4');
 
         $last_msg_sql = mysqli_query(
             $conn,
@@ -137,6 +139,7 @@ class PrivateChat
     public static function storeMessage(array $msg)
     {
         $conn = mysqli_connect("meet_wvsu_db", "root", "123", "meet.wvsu");
+        $conn->set_charset('utf8mb4');
 
         $sender_id = $msg["sender_id"];
         $receiver_id = $msg["receiver_id"];
